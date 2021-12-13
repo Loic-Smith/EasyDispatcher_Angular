@@ -1,0 +1,98 @@
+<div class="modal-header">
+    <h4 class="modal-title">Modifier Chauffeur</h4>
+    <button type="button" class="btn close" aria-label="Close"
+            (click)="activeModal.dismiss('Cross click')">
+    </button>
+</div>
+<div class="modal-body">
+    <div [hidden]="submitted" style="width: 400px;"></div>
+    <div  [hidden]="!submitted"  class="alert alert-success mt-5">
+        <strong>SUCCES!</strong> Les informations sont correctement enregistees.
+    </div>
+    <form [formGroup]="createChauffeurForm">
+        <div class="form-group">
+            <label class="small mb-1" for="nom">Nom</label>
+            <input formControlName="nom" class="form-control" id="nom" type="text"
+                   placeholder="" />
+        </div>
+        <div class="form-group">
+            <label class="small mb-1" for="prenom">Prenom</label>
+            <input formControlName="prenom" class="form-control" id="prenom" type="text"
+                   placeholder="" />
+        </div>
+        <div class="form-group">
+            <label class="small mb-1" for="date_embauche">Date Embauche</label>
+            <input formControlName="date_embauche" class="form-control" id="date_embauche"
+                   type="date" placeholder="" />
+        </div>
+        <div class="form-group">
+            <label class="small mb-1" for="date_depart">Date Départ</label>
+            <input formControlName="date_depart" class="form-control" id="date_depart"
+                   type="date" placeholder="" />
+        </div>
+        <div class="form-group">
+            <label class="small mb-1" for="statut">Statut</label>
+            <select class="custom-select" formControlName="statut" id="statut">
+                <option *ngFor="let statut of statuts" [ngValue]="statut">{{statut.statut}}
+                </option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="small mb-1" for="disponibilite">Disponibilité</label>
+
+            <div class="row">
+                <div class="form-group-row col-lg-6">
+                    <label class=" float-left text-lg-right">Lundi:</label>
+                    <input class="float-right" type="checkbox" name="lundi" formControlName="lundi"
+                           value="true" />
+                </div>
+                <div class="form-group-row col-lg-6">
+                    <label class=" float-left text-lg-right">Mardi:</label>
+                    <input class="float-right" type="checkbox" name="mardi" formControlName="mardi"
+                           value="true" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group-row col-lg-6">
+                    <label class=" float-left text-lg-right">Mercredi:</label>
+                    <input class="float-right" type="checkbox" name="mercredi" formControlName="mercredi"
+                           value="true" />
+                </div>
+                <div class="form-group-row col-lg-6">
+                    <label class=" float-left text-lg-right">Jeudi:</label>
+                    <input class="float-right" type="checkbox" name="jeudi" formControlName="jeudi"
+                           value="true" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group-row col-lg-6">
+                    <label class=" float-left text-lg-right">Vendredi:</label>
+                    <input class="float-right" type="checkbox" name="vendredi" formControlName="vendredi"
+                           value="true" />
+                </div>
+                <div class="form-group-row col-lg-6">
+                    <label class=" float-left text-lg-right">Samedi:</label>
+                    <input class="float-right" type="checkbox" name="samedi" formControlName="samedi"
+                           value="true" />
+                </div>
+            </div>
+            <div class="form-group-row col-lg-6">
+                <label class=" float-left text-lg-left">Dimanche:</label>
+                <input class="float-right" type="checkbox" name="dimanche" formControlName="dimanche"
+                       value="true" />
+            </div>
+        </div>
+        <div class="row " style="width: 100%" >
+            <div class="form-group float-left d-flex align-items-center justify-content-between ">
+                <button (click)="updateChauffeur()" class="btn"
+                        style="background-color:#42a5f5; color: white;">Modifier</button>
+            </div>
+            <div class="float-right form-group d-flex align-items-center justify-content-between " >
+                <button style="margin-left: 100%" class="btn btn-danger" (click)="activeModal.dismiss('anuler')">
+                    Annuler
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+

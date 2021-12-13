@@ -1,0 +1,211 @@
+
+<div style='margin: 2%; padding: 2%' class="card">
+    <div class="d-flex  justify-content-between p-10">
+        <div class="card-title">
+            <h3 class="card-label ">AJOUTER UN CAMION</h3>
+        </div>
+        <div class="card-toolbar">
+            <button type="button" class="btn btn-primary" (click)="displayList()" >Liste des camions</button>
+        </div>
+    </div>
+
+    <div class="row ">
+        <div class="col-md-offset-0 col-md-12">
+            <div class="">
+                <!--                    add new client-->
+                <div class="container" >
+                    <div [hidden]="submitted2" style="width: 400px;"></div>
+                    <div  [hidden]="!submitted2"  class="alert alert-success mt-5">
+                        <strong>SUCCES!</strong> Les informations sont correctement enregistees.
+                    </div>
+                    <!--                        <strong>SUCCES!</strong> Les informations sont correctement enregistees.-->
+                </div>
+
+                <form  [formGroup]="camionForm">
+
+
+                    <div class="row mt-3 mt-5">
+                        <div class="col-sm">
+                            <label for="assetId"> Asset ID</label>
+                            <input id="assetId" formControlName="assetId" class="form-control "
+                                   type="text" placeholder="Asset Id" />
+                        </div>
+                        <div  class="col-sm">
+                            <label for="description">description</label>
+                            <input id="description" formControlName="description" class="form-control"
+                                   type="tel" placeholder="Description" />
+                        </div>
+
+                        <div  class="col-sm">
+                            <label for="manufacture">manufacture</label>
+                            <input id="manufacture" formControlName="manufacture" class="form-control "
+                                   type="text" placeholder="Manufacture" />
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-sm">
+                            <label for="marque">marque</label>
+                            <input id="marque" formControlName="marque" class="form-control "
+                                   type="text" placeholder="Marque" />
+                        </div>
+                        <div class="col-sm">
+                            <label for="model">modèle</label>
+                            <input id="model" formControlName="model" class="form-control"
+                                   type="number"
+                                   placeholder="Modele" />
+                        </div>
+                        <div class="col-sm">
+                            <label for="mat">matricule</label>
+                            <input id="mat" formControlName="matricule" class="form-control"
+                                   type="text" placeholder="Matricule (Numéro de plaque)" />
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="row mt-3">
+                        <div class="col-sm">
+                            <label for="nbComp">Nombre Compartiments</label>
+                            <input id="nbComp" formControlName="nbreCompartiment" class="form-control "
+                                   type="text" placeholder="Nbre de compartiment" />
+                        </div>
+                        <div class="col-sm">
+                            <label for="capPied"> capacité pied</label>
+                            <input id="capPied" formControlName="capacitePied" class="form-control"
+                                   type="number"
+                                   placeholder="Capacité pied" />
+                        </div>
+                        <div class="col-sm">
+                            <label for="sn">Num série</label>
+                            <input id="sn" formControlName="serialNumber" class="form-control"
+                                   type="text"
+                                   placeholder="Numéro de serie" />
+                        </div>
+
+                    </div>
+
+
+                    <div class="row mt-3">
+                        <div class="col-sm">
+                            <label for="fabric">Fabric</label>
+                            <select  class="custom-select" formControlName="fabric" id="fabric">
+                                <option>Année d'acquisition</option>
+                                <option *ngFor="let y of years" value="{{y}}">{{y}}</option>
+                            </select>
+
+                        </div>
+                        <div class="col-sm">
+                            <label for="poids">Poids</label>
+                            <input id="poids" formControlName="poids" class="form-control"
+                                   type="number"
+                                   placeholder="Poids" />
+                        </div>
+                        <div class="col-sm">
+                            <label for="dernier_entretien">dernier entretien</label>
+                            <input id="dernier_entretien" formControlName="entretien" class="form-control"
+                                   type="date" placeholder="Dernier entretien" />
+                        </div>
+
+                    </div>
+
+
+                    <div class="row mt-3">
+                        <div class="col-sm">
+                            <label for="couleur">coleur</label>
+                            <input id="couleur" formControlName="couleur" class="form-control "
+                                   type="text" placeholder="couleur" />
+                        </div>
+                        <div class="col-sm">
+                            <label for="chauffeur">chauffeur</label>
+                            <select class="custom-select" formControlName="chauffeur" id="chauffeur">
+                                <option>Chauffeur associe</option>
+                                <option *ngFor="let chauffeur of chauffeurArray" value="{{chauffeur.id}}">
+                                    {{chauffeur.nomChauffeur}} {{chauffeur.prenomChauffeur}}</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="row mt-3">
+
+                        <div class="col-sm">
+                            <label class="small mb-1" >Status</label>
+                            <div class="checkbox">
+                                <div class="form-check" style="margin-right: 10px;">
+                                    <input class="form-check-input" type="radio" formControlName="dispo"
+                                           id="exampleRadios1" value="true" checked>
+                                    <label class="form-check-label" for="exampleRadios1">
+                                        Actif
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" formControlName="dispo"
+                                           id="exampleRadios2" value="false">
+                                    <label class="form-check-label" for="exampleRadios2">
+                                        Inactif
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <label class="small mb-1">IFTA</label>
+                            <div class="checkbox">
+                                <div class="form-check" style="margin-right: 10px;">
+                                    <input class="form-check-input" type="radio" formControlName="isReady"
+                                           value="true" checked>
+                                    <label class="form-check-label" >
+                                        Oui
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" formControlName="isReady"
+                                           value="false">
+                                    <label class="form-check-label" >
+                                        Non
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <label class="small mb-1" >US-DOT</label>
+                            <div class="checkbox">
+                                <div class="form-check" style="margin-right: 10px;">
+                                    <input class="form-check-input" type="radio" formControlName="isUsDot"
+                                           value="true" checked>
+                                    <label class="form-check-label" >
+                                        Oui
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" formControlName="isUsDot"
+                                           value="false">
+                                    <label class="form-check-label">
+                                        Non
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row my-10">
+                        <div class="col-sm mt-">
+                            <button style="width: 100%"  (click)="onSubmit()" class="btn btn-primary">Valider</button>
+                        </div>
+
+                        <div class="col-sm">
+                            <button style="width: 100%"  class="btn btn-danger">Annuler</button>
+                        </div>
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+

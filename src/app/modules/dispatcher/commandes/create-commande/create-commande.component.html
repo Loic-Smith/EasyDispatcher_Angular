@@ -1,0 +1,133 @@
+<div class="  border-0 rounded-lg mt-5">
+
+    <div class="card">
+        <div class="d-flex  justify-content-between p-10">
+            <div class="card-title">
+                <h2 class="card-label ">AJOUTER UNE COMMANDE</h2>
+            </div>
+            <div class="card-toolbar">
+                <button type="button" (click)="displayCommandList()" class="btn btn-primary">Liste des commandes</button>
+            </div>
+        </div>
+        <div [hidden]="submitted" style="width: 400px;"></div>
+        <div [hidden]="!submitted" class="alert alert-success mt-5">
+            <strong>SUCCES!</strong> Les informations sont correctement enregistees.
+        </div>
+        <form [formGroup]="createCommandeForm">
+            <div class="container">
+                <div class="form-group" style="margin-top: 1%">
+                    <label class="small mb-1" for="reference">Reference</label>
+                    <input formControlName="reference" class="form-control" id="reference" type="number" placeholder="" />
+                </div>
+                <div class="row mt-3 mt-5">
+                    <div class="form-group col-sm">
+                        <label class="small mb-1" for="expediteur">Client Expediteur</label>
+                        <select class="custom-select" formControlName="expediteur" id="expediteur">
+                                <option *ngFor="let client of clientArrayExp" [ngValue]="client">
+                                    {{client.clientName}}</option>
+                            </select>
+                    </div>
+                    <div class="form-group col-sm">
+                        <label class="small mb-1" for="destinateur">Client Destinataire</label>
+                        <select class="custom-select" formControlName="destinateur" id="destinateur">
+                                <option *ngFor="let client of clientArrayDest" [ngValue]="client">
+                                    {{client.clientName}}</option>
+                            </select>
+                    </div>
+                </div>
+                <div class="row mt-3 mt-5">
+                    <div class="form-group col-sm">
+                        <label class="small mb-1" for="qte_normal_expedie">Quantité Normale
+                                Expediée</label>
+                        <input formControlName="qte_normal_expedie" class="form-control" id="qte_normal_expedie" type="number" placeholder="Quantité Normale Expediée" />
+                    </div>
+                    <div class="form-group col-sm">
+                        <label class="small mb-1" for="qte_degel_expedie">Quantite De Gel
+                                Expedie</label>
+                        <input formControlName="qte_degel_expedie" class="form-control" id="qte_degel_expedie" type="number" placeholder="" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="small mb-1" for="temps_chargement_prevu">Temps Chargement
+                            Prévu</label>
+                    <input formControlName="temps_chargement_prevu" class="form-control" id="temps_chargement_prevu" type="datetime-local" placeholder="en Heure" />
+                </div>
+                <div class="row mt-3 mt-5">
+                    <div class="form-group col-sm">
+                        <label class="small mb-1" for="distance_expediteur_destinataire">Distance
+                                Expediteur Destinataire</label>
+                        <input formControlName="distance_expediteur_destinataire" class="form-control" id="distance_expediteur_destinataire" type="number" placeholder="en Km" />
+                    </div>
+                    <div class="form-group col-sm">
+                        <label class="small mb-1" for="prix_chauffeur">Prix Chauffeur</label>
+                        <input formControlName="prix_chauffeur" class="form-control" id="prix_chauffeur" type="number" placeholder="" />
+                    </div>
+                    <div class="form-group col-sm">
+                        <label class="small mb-1" for="prix_voiturier">Prix Voiturier</label>
+                        <input formControlName="prix_voiturier" class="form-control" id="prix_voiturier" type="number" placeholder="" />
+                    </div>
+                </div>
+                <div class="row mt-3 mt-5">
+                    <div class="form-group col-sm">
+                        <label class="small mb-1" for="date_chargement_prevu">Date Chargement
+                                Prévu</label>
+                        <input formControlName="date_chargement_prevu" class="form-control" id="date_chargement_prevu" type="datetime-local" placeholder="JJ/MM/AAAA" />
+                    </div>
+                    <div class="form-group col-sm">
+                        <label class="small mb-1" for="date_dechargement_prevu">Date Déchargement
+                                Prévu</label>
+                        <input formControlName="date_dechargement_prevu" class="form-control" id="date_dechargement_prevu" type="datetime-local" placeholder="JJ/MM/AAA" />
+                    </div>
+                </div>
+                <!-- <div class="form-group">
+                        <label class="small mb-1" for="heure_chargement_prevu">Heure Chargement
+                            Prévu</label>
+                        <input formControlName="heure_chargement_prevu" class="form-control"
+                            id="heure_chargement_prevu" type="datetime-local" placeholder="" />
+                    </div>
+                    <div class="form-group">
+                        <label class="small mb-1" for="heure_dechargement_prevu">Heure Déchargement
+                            Prévu</label>
+                        <input formControlName="heure_dechargement_prevu" class="form-control"
+                            id="heure_dechargement_prevu" type="datetime-local" placeholder="" />
+                    </div> -->
+                <div class="row mt-3 mt-5">
+                    <div class="form-group col-sm">
+                        <label class="small mb-1" for="produit">Produit</label>
+                        <select class="custom-select" formControlName="produit" id="produit">
+                                <option *ngFor = "let product of productArray" [ngValue]="product">{{product.designation}}</option>
+                            </select>
+                    </div>
+                    <div class="form-group col-sm">
+                        <label class="small mb-1" for="type_silo_chargement">Type Silo Chargement</label>
+                        <select class="custom-select" formControlName="type_silo_chargement" id="type_silo_chargement">
+                                <option *ngFor = "let type_silo of typeSilo" [ngValue]="type_silo">{{type_silo.libelle_type_silo}}</option>
+                            </select>
+                    </div>
+                    <div class="form-group col-sm">
+                        <label class="small mb-1" for="type_silo_dechargement">Type Silo Déchargement</label>
+                        <select class="custom-select" formControlName="type_silo_dechargement" id="type_silo_dechargement">
+                                <option *ngFor = "let type_silo of typeSilo" [ngValue]="type_silo">{{type_silo.libelle_type_silo}}</option>
+                            </select>
+                    </div>
+                </div>
+                <!--<div
+                            class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+                        <button (click)="onSubmit()" class="btn"
+                                [disabled]="!createCommandeForm.valid"
+                                style="background-color:#42a5f5; color: white;">Valider</button>
+                    </div>-->
+                <div class="row my-5">
+                    <div class="col-sm mt-">
+                        <button style="width: 100%" [disabled]="!createCommandeForm.valid" (click)="onSubmit()" class="btn btn-primary">Valider</button>
+                    </div>
+
+                    <div class="col-sm">
+                        <button style="width: 100%" (click)="displayCommandList()" class="btn btn-danger">Annuler</button>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

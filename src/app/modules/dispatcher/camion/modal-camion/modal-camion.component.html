@@ -1,0 +1,139 @@
+<div class="modal-header">
+    <h4 class="modal-title">Modifier un camion</h4>
+    <button type="button" class="btn close" aria-label="Close"
+            (click)="activeModal.dismiss('Cross click')">
+    </button>
+</div>
+<div class="modal-body">
+    <div [hidden]="submitted" style="width: 400px;"></div>
+    <div  [hidden]="!submitted"  class="alert alert-success mt-5">
+        <strong>SUCCES!</strong> Les informations sont correctement enregistees.
+    </div>
+    <form [formGroup]="createCamionForm">
+        <div class="row mt-3 mt-5">
+            <div class="col-sm">
+                <div class="form-group">
+                    <label class="small mb-1" for="marque">Marque</label>
+                    <input formControlName="marque" class="form-control" id="marque" type="text"
+                           placeholder="" />
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="form-group">
+                    <label class="small mb-1" for="model">Model</label>
+                    <input formControlName="model" class="form-control" id="model" type="text" placeholder="" />
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3 mt-5">
+            <div class="col-sm">
+                <div class="form-group">
+                    <label class="small mb-1" for="matricule">Matricule</label>
+                    <input formControlName="matricule" class="form-control" id="matricule" type="text"
+                           placeholder="" />
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="form-group">
+                    <label class="small mb-1" for="couleur">Couleur</label>
+                    <input formControlName="couleur" class="form-control" id="couleur" type="text"
+                           placeholder="" />
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3 mt-5">
+            <div class="col-sm">
+                <div class="form-group">
+                    <label class="small mb-1" for="fabric">Annee de fabrication</label>
+                    <select class="custom-select" formControlName="fabric" id="fabric" >
+                        <option *ngFor = "let y of years" value="{{y}}">{{y}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="form-group">
+                    <label class="small mb-1" for="poids">Poids</label>
+                    <input formControlName="poids" class="form-control" id="poids" type="number"
+                           placeholder="" />
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3 mt-5">
+            <div class="col-sm">
+                <div class="form-group">
+                    <label class="small mb-1" for="puissance">Puissance</label>
+                    <input formControlName="puissance" class="form-control" id="puissance" type="number"
+                           placeholder="" />
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="form-group">
+                    <label class="small mb-1" for="entretien">Dernier entretien</label>
+                    <input formControlName="entretien" class="form-control" id="entretien" type="date"
+                           placeholder="" />
+                </div>
+            </div>
+        </div>
+
+            <div class="mb-3">
+                <label class="small mb-1" for="chauffeur">Chauffeur associé</label>
+                <select class="custom-select" formControlName="chauffeur" id="chauffeur" >
+                    <option *ngFor = "let chauffeur of chauffeurArray" value="{{chauffeur.id}}">{{chauffeur.nomChauffeur}} {{chauffeur.prenomChauffeur}}</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label class="small mb-1" for="chauffeur" style="font-weight: bold">Est disponible</label>
+                        <div class="checkbox">
+                            <div class="form-check" style="margin-right: 10px;">
+                                <input class="form-check-input" type="radio" formControlName="dispo"
+                                       id="exampleRadios1" value="true" checked>
+                                <label class="form-check-label" for="exampleRadios1">
+                                    Oui
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" formControlName="dispo"
+                                       id="exampleRadios2" value="false">
+                                <label class="form-check-label" for="exampleRadios2">
+                                    Non
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3"></div>
+                    <div class="col-md-2">
+                        <label class="small mb-1" for="chauffeur" style="font-weight: bold">Est pret</label>
+                        <div class="checkbox">
+                            <div class="form-check" style="margin-right: 10px;">
+                                <input class="form-check-input" type="radio" formControlName="isReady"
+                                       id="exampleRadios" value="true" checked>
+                                <label class="form-check-label" for="exampleRadios">
+                                    Oui
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" formControlName="isReady"
+                                       id="exampleRadios0" value="false">
+                                <label class="form-check-label" for="exampleRadios0">
+                                    Non
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+            <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+                <button (click)="updateCamion()" class="btn"
+                        style="background-color:#42a5f5; color: white;">Modifier</button>
+                <button class="btn btn-danger" (click)="activeModal.dismiss('modification anulée')">
+                    annuler
+                </button>
+            </div>
+    </form>
+</div>

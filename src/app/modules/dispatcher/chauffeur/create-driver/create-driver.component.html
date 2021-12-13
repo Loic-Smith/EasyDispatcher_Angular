@@ -1,0 +1,129 @@
+
+<div style='margin: 2%; padding: 2%' class="card">
+
+    <div class="d-flex  justify-content-between p-10">
+        <div class="card-title">
+            <h3 class="card-label ">AJOUTER UN CHAUFFEUR</h3>
+        </div>
+        <div class="card-toolbar">
+            <button type="button" class="btn btn-primary" (click)="displayDriverList()" >Liste des chauffeurs</button>
+        </div>
+    </div>
+    <div class="row ">
+        <div class="col-md-offset-0 col-md-12 ">
+            <div class="">
+                <!--                    add new client-->
+                <div class="container" >
+                    <div [hidden]="submitted" style="width: 400px;"></div>
+                    <div  [hidden]="!submitted"  class="alert alert-success mt-5">
+                        <strong>SUCCES!</strong> Les informations sont correctement enregistees.
+                    </div>
+                </div>
+
+                <form  [formGroup]="driverForm">
+
+
+                    <div class="row mt-3 mt-5">
+                        <div class="col-sm">
+                            <label for="nomChauffeur"> Nom chauffeur</label>
+                            <input id="nomChauffeur" formControlName="nomChauffeur" class="form-control "
+                                   type="text" placeholder="Nom chauffeur" />
+                        </div>
+                        <div  class="col-sm">
+                            <label for="description"> prénom chauffeur</label>
+                            <input id="description" formControlName="description" class="form-control"
+                                   type="tel" placeholder="Prénom chauffeur" />
+                        </div>
+                        <div class="col-sm">
+                            <label for="statut"> statut chauffeur</label>
+                            <select class="custom-select" formControlName="statut" id="statut">
+                                <option> Status du chauffeur </option>
+                                <option *ngFor="let statut of statuts" [ngValue]="statut">{{statut.statut}}
+                                </option>
+                            </select>
+                        </div>
+
+
+                    </div>
+
+
+
+                    <div class="row mt-3 mt-5">
+                        <div class="col-sm">
+                            <label for="date_embauche"> date embauche</label>
+                            <input id="date_embauche" formControlName="date_embauche" class="form-control "
+                                   type="date" placeholder="Date embauche" />
+                        </div>
+                        <div  class="col-sm">
+                            <label for="date_depart"> date départ</label>
+                            <input id="date_depart" formControlName="date_depart" class="form-control"
+                                   type="date" placeholder="Date départ" />
+                        </div>
+
+                    </div>
+                    <br>
+                    <label> Disponibilité</label>
+                    <div class="row mt-3 mt-5">
+                        <div class="col-sm">
+                            <mat-slide-toggle>
+                                Lundi
+                            </mat-slide-toggle>
+
+                        </div>
+                        <div class="col-sm">
+                            <mat-slide-toggle>
+                                Mardi
+                            </mat-slide-toggle>
+
+                        </div>
+                        <div class="col-sm">
+                            <mat-slide-toggle>
+                                Mercredi
+                            </mat-slide-toggle>
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="row mt-3 mt-5">
+                        <div class="col-sm">
+                            <mat-slide-toggle>
+                                Jeudi
+                            </mat-slide-toggle>
+
+                        </div>
+                        <div class="col-sm">
+                            <mat-slide-toggle>
+                                Vendredi
+                            </mat-slide-toggle>
+
+                        </div>
+                        <div class="col-sm">
+                            <mat-slide-toggle>
+                                Samedi - Dimanche
+                            </mat-slide-toggle>
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="row my-10">
+                        <div class="col-sm mt-">
+                            <button style="width: 100%"  (click)="onSubmit()" class="btn btn-primary">Valider</button>
+                        </div>
+
+                        <div class="col-sm">
+                            <button style="width: 100%"  class="btn btn-danger">Annuler</button>
+                        </div>
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
