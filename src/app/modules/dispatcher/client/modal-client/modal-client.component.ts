@@ -21,7 +21,6 @@ export class ModalClientComponent implements OnInit {
   ngOnInit(): void {
     this.getClientPayeur();
     this.createClientForm = this.formBuilder.group({
-      clientType: [this.client.clientType],
       clientName: [this.client.clientName],
       clientAdresseComplete: [this.client.clientAdresseComplete],
       clientPhoneNumber:[this.client.clientPhoneNumber],
@@ -29,6 +28,7 @@ export class ModalClientComponent implements OnInit {
       clientAdresseStreetName: [this.client.clientAdresseStreetName],
       clientAdresseCity: [this.client.clientAdresseCity],
       clientAdresseCountry: [this.client.clientAdresseCountry],
+      //clientType: [this.client.clientType],
       //idClientPayer: ['']
     });
 
@@ -37,7 +37,7 @@ export class ModalClientComponent implements OnInit {
 
   udpateClient(){
     let clt = new Client();
-    clt.clientType= this.f.clientType.value,
+    //clt.clientType= this.f.clientType.value,
         clt.clientName= this.f.clientName.value,
         clt.clientAdresseMunicipalNumber= this.f.clientAdresseMunicipalNumber.value,
         clt.clientAdresseStreetName= this.f.clientAdresseStreetName.value,

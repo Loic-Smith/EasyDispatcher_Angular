@@ -1,0 +1,48 @@
+<div class="card">
+    <div class="card-title text-start">
+        <h3>Détails sur le client</h3>
+    </div>
+    <div class="card-body">
+        <table style="width: 100%;height: 100%;">
+            <tr>
+                <td>Identifiant</td>
+                <td>{{client.id}}</td>
+            </tr>
+            <tr>
+                <td>Nom</td>
+                <td>{{client.clientName}}</td>
+            </tr>
+            <tr>
+                <td>Adresse</td>
+                <td>{{client.clientAdresseComplete}}</td>
+            </tr>
+            <tr>
+                <td>Ville</td>
+                <td>{{client.clientAdresseCity}}</td>
+            </tr>
+            <tr>
+                <td>Pays</td>
+                <td>{{client.clientAdresseCountry}}</td>
+            </tr>
+            <tr>
+                <td>Rue</td>
+                <td>{{client.clientAdresseStreetName}}</td>
+            </tr>
+            <tr>
+                <td>Municipalité</td>
+                <td>{{client.clientAdresseMunicipalNumber}}</td>
+            </tr>
+            <tr>
+                <td>E-mail</td>
+                <td>{{client.clientEmail}}</td>
+            </tr>
+            <tr>
+                <td>Téléphone</td>
+                <td>{{client.clientPhoneNumber}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="card-footer">
+        <button class="btn btn-danger" (click)="activemodal.dismiss('')">Fermer</button>
+    </div>
+</div>

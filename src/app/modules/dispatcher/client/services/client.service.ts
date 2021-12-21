@@ -33,7 +33,7 @@ export class ClientService {
   }
 
   deleteClient(id: number): Observable<any> {
-    return this.http.delete(this.baseUrl+ '/client/'+id, { responseType: 'text' });
+    return this.http.delete(this.baseUrl+ '/client/delete/'+id, { responseType: 'text' });
   }
 
   getClientsList(): Observable<any> {

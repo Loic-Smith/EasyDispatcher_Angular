@@ -27,17 +27,40 @@
                         <div class="row mt-3 mt-5">
                             <div class="col-sm">
 
-                                <input formControlName="clientName" class="form-control " type="text" placeholder="Entrer le nom" required [ngClass]="{'is-invalid':createClientForm.get('clientName').touched && !createClientForm.get('clientName').valid || !createClientForm.get('clientName').valid,'is-valid':createClientForm.get('clientName').valid}"
-                                />
+                                <input formControlName="clientName" class="form-control " type="text" placeholder="Entrer le nom" required [ngClass]="{'is-valid':createClientForm.get('clientName').valid,'is-invalid':createClientForm.get('clientName').errors}" />
+                                <div *ngIf="createClientForm.get('clientName').errors" class="invalid-feedback">
+                                    <div *ngIf="createClientForm.get('clientName').hasError('required')">
+                                        Vous devez remplir ce champ!
+                                    </div>
+                                    <div *ngIf="createClientForm.get('clientName').hasError('pattern')">
+                                        Ce champ ne doit contenir aucun chiffre !
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-sm">
-                                <input formControlName="clientPhoneNumber" class="form-control" type="tel" placeholder="Entrer le téléphone" id="phonenumber" required [ngClass]="{'is-invalid':createClientForm.get('clientPhoneNumber').touched && !createClientForm.get('clientPhoneNumber').valid || !createClientForm.get('clientPhoneNumber').valid,'is-valid':createClientForm.get('clientPhoneNumber').valid}"
+                                <input formControlName="clientPhoneNumber" class="form-control" type="tel" placeholder="Entrer le téléphone" id="phonenumber" required [ngClass]="{'is-invalid':createClientForm.get('clientPhoneNumber').touched && createClientForm.get('clientPhoneNumber').hasError('min') || !createClientForm.get('clientPhoneNumber').valid,'is-valid':createClientForm.get('clientPhoneNumber').valid}"
                                 />
+                                <div *ngIf="createClientForm.get('clientPhoneNumber').errors" class="invalid-feedback">
+                                    <div *ngIf="createClientForm.get('clientPhoneNumber').hasError('required')">
+                                        Vous devez remplir ce champ!
+                                    </div>
+                                    <div *ngIf="createClientForm.get('clientPhoneNumber').hasError('min')">
+                                        La valeur de ce champ doit dépasser 0!
+                                    </div>
+                                    <div *ngIf="createClientForm.get('clientPhoneNumber').hasError('pattern')">
+                                        La valeur de ce champ doit être un nombre!
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="col-sm">
                                 <input formControlName="clientAdresseCountry" class="form-control " type="text" placeholder="Entrer le pays" required [ngClass]="{'is-invalid':!createClientForm.get('clientAdresseCountry').touched && !createClientForm.get('clientAdresseCountry').valid || !createClientForm.get('clientAdresseCountry').valid ,'is-valid':createClientForm.get('clientAdresseCountry').valid}"
                                 />
+                                <div *ngIf="createClientForm.get('clientAdresseCountry').errors" class="invalid-feedback">
+                                    <div *ngIf="createClientForm.get('clientAdresseCountry').hasError('required')">
+                                        Vous devez remplir ce champ!
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
@@ -73,14 +96,35 @@
                             <div class="col-sm">
                                 <input formControlName="clientAdresseCity" class="form-control " type="text" placeholder="Entrer la ville" required [ngClass]="{'is-invalid':createClientForm.get('clientAdresseCity').touched && !createClientForm.get('clientAdresseCity').valid || !createClientForm.get('clientAdresseCity').valid,'is-valid':createClientForm.get('clientAdresseCity').valid}"
                                 />
+                                <div *ngIf="createClientForm.get('clientAdresseCity').errors" class="invalid-feedback">
+                                    <div *ngIf="createClientForm.get('clientAdresseCity').hasError('required')">
+                                        Vous devez remplir ce champ!
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-sm">
-                                <input formControlName="clientAdresseMunicipalNumber" class="form-control" type="number" placeholder="No de la municipalité" required [ngClass]="{'is-invalid':createClientForm.get('clientAdresseMunicipalNumber').touched && !createClientForm.get('clientAdresseMunicipalNumber').valid || !createClientForm.get('clientAdresseMunicipalNumber').valid,'is-valid':createClientForm.get('clientAdresseMunicipalNumber').valid}"
+                                <input formControlName="clientAdresseMunicipalNumber" class="form-control" placeholder="No de la municipalité" required [ngClass]="{'is-invalid':createClientForm.get('clientAdresseMunicipalNumber').errors ,'is-valid':createClientForm.get('clientAdresseMunicipalNumber').valid}"
                                 />
+                                <div *ngIf="createClientForm.get('clientAdresseMunicipalNumber').errors" class="invalid-feedback">
+                                    <div *ngIf="createClientForm.get('clientAdresseMunicipalNumber').hasError('required')">
+                                        Vous devez remplir ce champ!
+                                    </div>
+                                    <div *ngIf="createClientForm.get('clientAdresseMunicipalNumber').hasError('min')">
+                                        La valeur de ce champ doit dépasser 0!
+                                    </div>
+                                    <div *ngIf="createClientForm.get('clientAdresseMunicipalNumber').hasError('pattern')">
+                                        La valeur de ce champ doit être un nombre!
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-sm">
                                 <input formControlName="clientAdresseStreetName" class="form-control" type="text" placeholder="Entrer la rue" required [ngClass]="{'is-invalid':createClientForm.get('clientAdresseStreetName').touched && !createClientForm.get('clientAdresseStreetName').valid || !createClientForm.get('clientAdresseStreetName').valid,'is-valid':createClientForm.get('clientAdresseStreetName').valid}"
                                 />
+                                <div *ngIf="createClientForm.get('clientAdresseStreetName').errors" class="invalid-feedback">
+                                    <div *ngIf="createClientForm.get('clientAdresseStreetName').hasError('required')">
+                                        Vous devez remplir ce champ!
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
@@ -90,6 +134,11 @@
                             <div class="col-sm">
                                 <input formControlName="clientAdresseComplete" class="form-control" type="text" placeholder="Entrer l'adresse complète" id="adresse" required [ngClass]="{'is-invalid':createClientForm.get('clientAdresseComplete').touched && !createClientForm.get('clientAdresseComplete').valid || !createClientForm.get('clientAdresseComplete').touched,'is-valid':createClientForm.get('clientAdresseComplete').valid}"
                                 />
+                                <div *ngIf="createClientForm.get('clientAdresseComplete').errors" class="invalid-feedback">
+                                    <div *ngIf="createClientForm.get('clientAdresseComplete').hasError('required')">
+                                        Vous devez remplir ce champ!
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
@@ -97,7 +146,7 @@
 
                         <div class="row my-5">
                             <div class="col-sm mt-">
-                                <button style="width: 100%" (click)="onSubmit()" class="btn btn-primary" id="valider">Valider</button>
+                                <button style="width: 100%" (click)="onSubmit()" class="btn btn-primary" id="valider" [disabled]="!createClientForm.valid">Valider</button>
                             </div>
 
                             <div class="col-sm">

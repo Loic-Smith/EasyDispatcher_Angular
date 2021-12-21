@@ -1,7 +1,7 @@
 export class Client {
     id = 0;
     clientName = '';
-    clientType = '';
+    //clientType = '';
     clientAdresseMunicipalNumber = 0;
     clientAdresseStreetName = '';
     clientAdresseCity = '';

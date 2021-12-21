@@ -47,12 +47,12 @@ export class CreateCommandeComponent implements OnInit {
     reference: new FormControl('',[Validators.required]),
     expediteur: new FormControl('',[Validators.required]),
     destinateur: new FormControl('',[Validators.required]),
-    qte_normal_expedie: new FormControl('',[Validators.required]),
-    qte_degel_expedie: new FormControl('',[Validators.required]),
+    qte_normal_expedie: new FormControl('',[Validators.required,Validators.min(0),Validators.pattern("^[0-9.]*$")]),
+    qte_degel_expedie: new FormControl('',[Validators.required,Validators.min(0),Validators.pattern("^[0-9.]*$")]),
     temps_chargement_prevu: new FormControl('',[Validators.required]),
-    distance_expediteur_destinataire: new FormControl('',[Validators.required]),
-    prix_chauffeur: new FormControl('',[Validators.required]),
-    prix_voiturier: new FormControl('',[Validators.required]),
+    distance_expediteur_destinataire: new FormControl('',[Validators.required,Validators.min(0),Validators.pattern("^[0-9.]*$")]),
+    prix_chauffeur: new FormControl('',[Validators.required,Validators.min(0),Validators.pattern("^[0-9.]*$")]),
+    prix_voiturier: new FormControl('',[Validators.required,Validators.min(0),Validators.pattern("^[0-9.]*$")]),
     date_chargement_prevu: new FormControl('',[Validators.required]),
     date_dechargement_prevu: new FormControl('',[Validators.required]),
     // heure_chargement_prevu: new FormControl('',[Validators.required]),
@@ -89,6 +89,7 @@ export class CreateCommandeComponent implements OnInit {
       this.listCommande();
     });
     this.submitted = true;
+    this.createCommandeForm.reset();
   }
   displayCommandList() {
     this.router.navigate(['/dispatcher/command/list']);

@@ -23,45 +23,49 @@
 
                     <table mat-table [dataSource]="dataSource" class="table  table-hover ">
 
-                        <ng-container matColumnDef="id">
-                            <th mat-header-cell *matHeaderCellDef style='background-color:  #42a5f5; color: white'> No. </th>
-                            <td class="align-items-center" mat-cell *matCellDef="let element"> {{element.id}} </td>
+                        <ng-container matColumnDef="reference">
+                            <th mat-header-cell *matHeaderCellDef style='background-color:  #42a5f5; color: white'> Ref</th>
+                            <td class="align-items-center" mat-cell *matCellDef="let element"> {{element.reference}} </td>
                         </ng-container>
 
                         <ng-container matColumnDef="clientExpediteur">
-                            <th mat-header-cell *matHeaderCellDef style='background-color:  #42a5f5; color: white'>Client Exp </th>
+                            <th mat-header-cell *matHeaderCellDef style='background-color:  #42a5f5; color: white'>Expéditeur </th>
                             <td mat-cell *matCellDef="let element"> {{element.clientExpediteur.clientName}} </td>
                         </ng-container>
 
-                        <ng-container matColumnDef="heure_chargement_prevu">
-                            <th mat-header-cell *matHeaderCellDef style='background-color:  #42a5f5; color: white'> heure_chargement </th>
-                            <td mat-cell *matCellDef="let element"> {{element.heure_chargement_prevu}} </td>
-                        </ng-container>
-
                         <ng-container matColumnDef="clientDestinataire">
-                            <th mat-header-cell *matHeaderCellDef style='background-color:  #42a5f5; color: white'> Client Dest </th>
+                            <th mat-header-cell *matHeaderCellDef style='background-color:  #42a5f5; color: white'> Destinataire </th>
                             <td mat-cell *matCellDef="let element"> {{element.clientDestinataire.clientName}}</td>
                         </ng-container>
 
+                        <ng-container matColumnDef="produit">
+                            <th mat-header-cell *matHeaderCellDef style='background-color:  #42a5f5; color: white'> Produit </th>
+                            <td mat-cell *matCellDef="let element"> {{element.produit}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="heure_chargement_prevu">
+                            <th mat-header-cell *matHeaderCellDef style='background-color:  #42a5f5; color: white'> heure chargement </th>
+                            <td mat-cell *matCellDef="let element"> {{element.heure_chargement_prevu}} </td>
+                        </ng-container>
+
                         <ng-container matColumnDef="heure_dechargement_prevu">
-                            <th mat-header-cell *matHeaderCellDef style='background-color:  #42a5f5; color: white'>heure_dechargement</th>
+                            <th mat-header-cell *matHeaderCellDef style='background-color:  #42a5f5; color: white'>heure déchargement</th>
                             <td mat-cell *matCellDef="let element"> {{element.heure_dechargement_prevu}}</td>
                         </ng-container>
 
                         <ng-container matColumnDef="prix_chauffeur">
-                            <th mat-header-cell *matHeaderCellDef style='background-color:  #42a5f5; color: white'> prix_chauffeur </th>
+                            <th mat-header-cell *matHeaderCellDef style='background-color:  #42a5f5; color: white'> prix chauffeur </th>
                             <td mat-cell *matCellDef="let element"> {{element.prix_chauffeur}}</td>
                         </ng-container>
 
-                        <ng-container matColumnDef="reference">
-                            <th mat-header-cell *matHeaderCellDef style='background-color:  #42a5f5; color: white'> reference </th>
-                            <td mat-cell *matCellDef="let element"> {{element.reference}}</td>
-                        </ng-container>
-
                         <ng-container matColumnDef="action">
-                            <th mat-header-cell *matHeaderCellDef style='background-color:  #42a5f5; color: white; text-align: right'> Action </th>
-                            <td mat-cell *matCellDef="let element"> <button type="button" class="btn btn-warning m-1 text-right" (click)="openFormModal(element)" title="Active" style="float: right"><i class="fa fa-edit"></i></button></td>
-                            <td mat-cell *matCellDef="let element"> <button type="button" class="btn btn-warning m-1 text-right" (click)="openFormModal(element)" title="Active" style="float: right"><i class="fa fa-trash-alt"></i></button></td>
+                            <th mat-header-cell *matHeaderCellDef style='background-color:  #42a5f5; color: white; text-align: center'> Action </th>
+                            <td mat-cell *matCellDef="let element">
+                                <button type="button" class="btn btn-danger m-1 text-right" (click)="openDeleteConfirmationModal(element)" title="Supprimer" style="float: right"><i class="fa fa-trash-alt"></i></button>
+                                <button type="button" class="btn btn-warning m-1 text-right" (click)="openFormModal(element)" title="Editer" style="float: right"><i class="fa fa-edit"></i></button>
+                                <button type="button" class="btn btn-primary m-1 text-right" (click)="openDetailsModal(element)" title="Details" style="float: right"><i class="fa fa-info-circle"></i></button>
+                            </td>
+
                         </ng-container>
 
 

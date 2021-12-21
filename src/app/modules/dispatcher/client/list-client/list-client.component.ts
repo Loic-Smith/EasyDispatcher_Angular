@@ -5,7 +5,10 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {MatPaginator} from '@angular/material/paginator';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Client} from '../models/client-model';
+import {HttpClient} from '@angular/common/http';
 import {ModalClientComponent} from '../modal-client/modal-client.component';
+import { ClientDetailComponent } from '../client-detail/client-detail.component';
+import { ClientDeleteConfirmationComponent } from '../client-delete-confirmation/client-delete-confirmation.component';
 
 
 @Component({
@@ -44,7 +47,8 @@ export class ListClientComponent implements OnInit {
       private route: ActivatedRoute,
       private router: Router,
       private clientservice: ClientService,
-      private modalService: NgbModal
+      private modalService: NgbModal,
+      private service:HttpClient
   ) {}
 
   ngOnInit() {
@@ -94,6 +98,38 @@ export class ListClientComponent implements OnInit {
           console.log(error);
         });
   }
+
+  openDetailsModal(client:any){
+    //opening a selected client details view as a modal...
+    const mod=this.modalService.open(ClientDetailComponent);
+    mod.componentInstance.client=client;
+    mod.result
+    .then(result=>{
+      //then cool it works!
+      console.log(result);
+    })
+    .catch(err=>{
+      //then we got an error!
+      //alert('détails Client introuvable!');
+      console.log(err);
+    });
+  }
+  openClientDeleteConfirmationModal(client:any){
+    //opening a sdelete confirmation modal...
+    const mod=this.modalService.open(ClientDeleteConfirmationComponent);
+    mod.componentInstance.client=client;
+    mod.result
+    .then(result=>{
+      //then cool it works!
+      console.log(result);
+    })
+    .catch(err=>{
+      //then we got an error!
+      //alert(err);//('impossible de suprimer , Client introuvable!');
+      console.log(err);
+    });
+  }
+
   displayClientForm() {
     this.router.navigate(['/dispatcher/client/new']);
   }
@@ -101,7 +137,7 @@ export class ListClientComponent implements OnInit {
   getListClient() {
     this.clientservice.getClientsList().subscribe(data => {
       this.clients = data;
-      alert(this.clients);
+      //alert(this.clients);
       this.searchedClients = this.clients;
     });
   }
@@ -139,6 +175,7 @@ export class ListClientComponent implements OnInit {
       this.dataSource = new MatTableDataSource<Client>(ELEMENT_DATA);
       this.dataSource.paginator = this.paginator;
     });
+
   }
 
   // listClientDest() {

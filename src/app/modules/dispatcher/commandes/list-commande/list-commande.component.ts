@@ -10,6 +10,8 @@ import {ModalCommandeComponent} from '../modal-commande/modal-commande.component
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {Router} from '@angular/router';
+import { CommandDetailsComponent } from '../command-details/command-details.component';
+import { CommandDeleteConfirmationComponent } from '../command-delete-confirmation/command-delete-confirmation.component';
 
 @Component({
   selector: 'app-list-commande',
@@ -28,13 +30,13 @@ export class ListCommandeComponent implements OnInit {
   dataSource: any;
 
   displayedColumns: string[] = [
-    'id',
+    'reference',
     'clientExpediteur',
-    'heure_chargement_prevu',
     'clientDestinataire',
+    'produit',
+    'heure_chargement_prevu',
     'heure_dechargement_prevu',
     'prix_chauffeur',
-    'reference',
     'action',
   ];
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
@@ -64,6 +66,37 @@ export class ListCommandeComponent implements OnInit {
     });
   }
 
+  openDetailsModal(command:any){
+    //opening a selected client details view as a modal...
+    const mod=this.modalService.open(CommandDetailsComponent);
+    mod.componentInstance.command=command;
+    mod.result
+    .then(result=>{
+      //then cool it works!
+      console.log(result);
+    })
+    .catch(err=>{
+      //then we got an error!
+      //alert(err);//('détails Client introuvable!');
+      console.log(err);
+    });
+  }
+  openDeleteConfirmationModal(command:any){ 
+    //opens a confirmation popup before deleting a given command...
+    const mod=this.modalService.open(CommandDeleteConfirmationComponent);
+    mod.componentInstance.name=command.reference;
+    mod.componentInstance.code=command.id;
+    mod.result
+    .then(res=>{
+      //then cool it works!
+      alert('Succes!');
+    })
+    .catch(err=>{
+      //we got an error!
+      //alert(err);//('impossible de supprimer cette commande!')
+    });
+  }
+
   listCommande(){
     this.commandeService.getCommandeList().subscribe(res => {
       this.commandeArray = res;
@@ -72,6 +105,12 @@ export class ListCommandeComponent implements OnInit {
       this.dataSource = new MatTableDataSource<CommandeModel>(ELEMENT_DATA);
       this.dataSource.paginator = this.paginator;
     });
+  }
+
+  deleteCommand(commandid:number){
+    //we delete a command by a given ID..
+    this.commandeService.deleteCommande(commandid);
+    alert('Commande supprimée avec succes!');
   }
 
   listClientExp(){

@@ -34,6 +34,8 @@ import { ModalCiterneComponent } from './citerne/modal-citerne/modal-citerne.com
 import { ModalUserComponent } from './utilisateur/modal-user/modal-user.component';
 import { ModalCamionComponent } from './camion/modal-camion/modal-camion.component';
 import { ModalChargementComponent } from './chargement/modal-chargement/modal-chargement.component';
+import { ClientDetailComponent } from './client/client-detail/client-detail.component';
+import { ClientDeleteConfirmationComponent } from './client/client-delete-confirmation/client-delete-confirmation.component';
 
 
 
@@ -63,7 +65,8 @@ import { ModalChargementComponent } from './chargement/modal-chargement/modal-ch
      ModalCiterneComponent,
      ModalUserComponent,
      ModalCamionComponent,
-     ModalChargementComponent*/],
+     ModalChargementComponent*/ClientDetailComponent,
+     ClientDeleteConfirmationComponent],
     imports: [
         CommonModule,
         BrowserModule,

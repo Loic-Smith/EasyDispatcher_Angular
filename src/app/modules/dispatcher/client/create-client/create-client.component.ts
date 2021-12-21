@@ -60,11 +60,11 @@ export class CreateClientComponent implements OnInit {
 
   ngOnInit() {
     this.createClientForm = this.formBuilder.group({
-      clientName: ['', Validators.required],
-      clientType: ['', Validators.required],
-      clientPhoneNumber: ['', Validators.required],
+      clientName: ['', Validators.required,,Validators.pattern("^[a-zA-Z0-9\s]*$")],
+      //clientType: ['', Validators.required],
+      clientPhoneNumber: ['', [Validators.required,Validators.min(0),Validators.pattern("^[0-9]*$")]],
       clientAdresseComplete: ['', Validators.required],
-      clientAdresseMunicipalNumber: ['', Validators.required],
+      clientAdresseMunicipalNumber: ['', [Validators.required,Validators.min(0),Validators.pattern("^[0-9]*$")]],
       clientAdresseStreetName: ['', Validators.required],
       clientAdresseCity: ['', Validators.required],
       clientAdresseCountry: ['', Validators.required],
@@ -125,15 +125,15 @@ export class CreateClientComponent implements OnInit {
 
     this.client = new Client();
     
-    (this.client.clientName = this.f.clientName.value),
-        (this.client.clientType = this.f.clientType.value),
-        (this.client.clientAdresseMunicipalNumber = this.f.clientAdresseMunicipalNumber.value),
-        (this.client.clientAdresseStreetName = this.f.clientAdresseStreetName.value),
-        (this.client.clientAdresseCity = this.f.clientAdresseCity.value),
-        (this.client.clientAdresseCountry = this.f.clientAdresseCountry.value),
-        //(this.client.idClientPayer = this.f.idClientPayer.value);
+    (this.client.clientName = this.f.clientName.value);
+    (this.client.clientAdresseMunicipalNumber = this.f.clientAdresseMunicipalNumber.value);
+    (this.client.clientAdresseStreetName = this.f.clientAdresseStreetName.value);
+    (this.client.clientAdresseCity = this.f.clientAdresseCity.value);
+    (this.client.clientAdresseCountry = this.f.clientAdresseCountry.value);
     this.client.clientAdresseComplete = this.f.clientAdresseComplete.value;
-    (this.client.clientPhoneNumber = this.f.clientPhoneNumber.value),
+    (this.client.clientPhoneNumber = this.f.clientPhoneNumber.value);
+        //(this.client.clientType = this.f.clientType.value),
+        //(this.client.idClientPayer = this.f.idClientPayer.value);
         // (this.client.clientPayeur = this.f.clientPayeur.value),
         // (this.client.clientExpediteur = this.f.clientExpediteur.value),
         // (this.client.clientDestinataire = this.f.clientDestinataire.value);
@@ -143,6 +143,9 @@ export class CreateClientComponent implements OnInit {
           console.log(data);
           this.submitted=true;
           this.getListClient();
+          //there is no Error then we reset the form
+          this.createClientForm.reset();
+          this.displayClientList();
         },
         error => {
           this.submitted=false;
@@ -154,12 +157,13 @@ export class CreateClientComponent implements OnInit {
   }
 
   onSubmit() {
-    //alert(this.createClientForm.valid);
+    //Create and save a new client if form is valid
 
     if(this.createClientForm.valid){
       // then Cool the form is valid
       this.createClient();
     }else{
+      alert("Non!");
       this.submitted=false;
     }
     //this.submitted = true;
