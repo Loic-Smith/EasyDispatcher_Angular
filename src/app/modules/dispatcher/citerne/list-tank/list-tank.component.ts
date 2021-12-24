@@ -6,6 +6,7 @@ import {CiterneService} from '../services';
 import {CiterneModel} from '../models/citerne.model';
 import {ModalCiterneComponent} from '../modal-citerne/modal-citerne.component';
 import {Router} from '@angular/router';
+import { DetailsCiterneComponent } from '../details-citerne/details-citerne.component';
 
 @Component({
   selector: 'app-list-tank',
@@ -27,9 +28,6 @@ export class ListTankComponent implements OnInit {
     'description',
     'matricule',
     'serialNumber',
-    'capacitePied',
-    'isVaccum',
-    'isAutoVireur',
     'action'
   ];
   ngAfterViewInit() {
@@ -50,6 +48,17 @@ export class ListTankComponent implements OnInit {
   }
   openFormModal(citerne: any) {
     const modalRef = this.modalService.open(ModalCiterneComponent);
+    modalRef.componentInstance.citerne = citerne;
+    modalRef.result
+        .then(result => {
+          console.log(result);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+  }
+  openDetailsCiterne(citerne: any) {
+    const modalRef = this.modalService.open(DetailsCiterneComponent);
     modalRef.componentInstance.citerne = citerne;
     modalRef.result
         .then(result => {

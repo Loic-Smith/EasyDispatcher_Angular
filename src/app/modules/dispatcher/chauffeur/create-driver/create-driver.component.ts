@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ProductService} from '../../produit/services';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ChauffeurService} from '../services/chauffeur-service.service';
 
 @Component({
@@ -12,43 +12,20 @@ import {ChauffeurService} from '../services/chauffeur-service.service';
 })
 export class CreateDriverComponent implements OnInit {
   statuts = [
+   
     {
       id: 1,
-      statut: 'SALARIE'
+      statut: 'Permanent'
     },
     {
       id: 2,
-      statut: 'BROKERS'
-    },
-    {
-      id: 3,
-      statut: 'CHAUFFEUR'
-    },
-    {
-      id: 4,
-      statut: 'CHAUFFEUR INC'
-    },
-    {
-      id: 5,
-      statut: 'INCORPORE'
-    },
-    {
-      id: 6,
-      statut: 'INCORPORE INC'
-    },
-    {
-      id: 7,
-      statut: 'PROPRIETAIRE'
-    },
-
-    {
-      id: 8,
-      statut: 'VOITURIER'
+      statut: 'Temporaire'
     },
   ];
 
   driverForm!: FormGroup;
   submitted = false;
+  closeResult: string;
   constructor(
       private formBuilder: FormBuilder,
       private route: ActivatedRoute,
@@ -57,26 +34,67 @@ export class CreateDriverComponent implements OnInit {
       private modalService: NgbModal
   ) {}
 
-  ngOnInit() {
-    this.driverForm = this.formBuilder.group({
-      nomChauffeur: ['', Validators.required],
-      prenomChauffeur: ['', Validators.required],
-      date_embauche: ['', Validators.required],
-      date_depart: ['', Validators.required],
+  open(content) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
 
-  onSubmit(){
+  private getDismissReason(reason: any): string {
+
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
+  ngOnInit() {
+    this.driverForm = this.formBuilder.group({
+      nomChauffeur: ['', [Validators.required,Validators.minLength(3)]],
+      prenomChauffeur: ['', [Validators.required,Validators.minLength(3)]],
+      date_embauche: ['', Validators.required],
+      date_depart: ['', Validators.required],
+      contact:['',Validators.required],
+      statut:['',Validators.required],
+      lundi:[false,Validators.required],
+      mardi:[false,Validators.required],
+      mercredi:[false,Validators.required],
+      jeudi:[false,Validators.required],
+      vendredi:[false,Validators.required],
+      samedi:[false,Validators.required],
+      dimanche:[false,Validators.required],
+    });
+  }
+
+  onSubmit(value:any){
     const data = {
-      nomChauffeur: this.driverForm.get('nom')?.value,
-      prenomChauffeur: this.driverForm.get('prenom')?.value,
+      nomChauffeur: this.driverForm.get('nomChauffeur')?.value,
+      prenomChauffeur: this.driverForm.get('prenomChauffeur')?.value,
       date_embauche: this.driverForm.get('date_embauche')?.value,
       date_depart: this.driverForm.get('date_depart')?.value,
+      statut: this.driverForm.get('statut')?.value,
+      contact: this.driverForm.get('contact')?.value,
+      jour:[
+              this.driverForm.get('lundi')?.value ? "lundi":"",
+              this.driverForm.get('mardi')?.value ? "mardi":"",
+              this.driverForm.get('mercredi')?.value ? "mercredi":"",
+              this.driverForm.get('jeudi')?.value ? "jeudi":"",
+              this.driverForm.get('vendredi')?.value ? "vendredi":"",
+              this.driverForm.get('samedi')?.value ? "samedi":"",
+              this.driverForm.get('dimanche')?.value ? "dimanche":"",
+      ],
     };
-    this.chauffeurService.createChauffeur(data).subscribe(res => {
+    this.chauffeurService.createChauffeur(data).subscribe(res =>{
       console.log(res);
     });
     this.submitted = true;
+    
+    this.driverForm.reset();
   }
  displayDriverList(){
     this.router.navigate(['dispatcher/driver/list']);

@@ -28,18 +28,39 @@
                         <div class="col-sm">
                             <label for="assetId"> Asset ID</label>
                             <input id="assetId" formControlName="assetId" class="form-control "
-                                   type="text" placeholder="Asset Id" />
+                                   type="text" placeholder="Asset Id" 
+                                   [ngClass]="!citerneForm.get('assetId').valid? 'is-invalid'
+                                   :citerneForm.get('assetId').valid? 'is-valid'
+                                   :''
+                                   "
+                                   />
+                                   <!--<div [hidden]="citerneForm.get('assetId').valid" 
+                                   class="alert alert-danger">Asset ID est obligatoire et doit avoir plus de cinq caractères</div>-->
                         </div>
                         <div  class="col-sm">
-                            <label for="desc">description</label>
-                            <input id="desc" formControlName="description" class="form-control"
-                                   type="tel" placeholder="Description" />
+                            <label for="description">description</label>
+                            <input id="description" formControlName="description" class="form-control"
+                                   type="text" placeholder="Description" 
+                                   [ngClass]="!citerneForm.get('description').valid? 'is-invalid'
+                                   :citerneForm.get('description').valid? 'is-valid'
+                                   :''
+                                   "
+                            />
+                                   <!--<div [hidden]="citerneForm.get('description').valid 
+                                   || !citerneForm.get('description').touched" class="alert alert-danger">Description est obligatoire</div>-->
                         </div>
 
                         <div  class="col-sm">
                             <label for="manu">manufacture</label>
                             <input id="manu" formControlName="manufacture" class="form-control "
-                                   type="text" placeholder="Manufacture" />
+                                   type="text" placeholder="Manufacture"
+                                   [ngClass]="!citerneForm.get('manufacture').valid? 'is-invalid'
+                                   :citerneForm.get('manufacture').valid? 'is-valid'
+                                   :''
+                                   "  
+                            />
+                            .<!--<div [hidden]="citerneForm.get('manufacture').valid 
+                                   || !citerneForm.get('manufacture').touched" class="alert alert-danger">Manufacture est obligatoire</div>-->
                         </div>
                     </div>
 
@@ -47,18 +68,35 @@
                         <div class="col-sm">
                             <label for="marque">marque</label>
                             <input id="marque" formControlName="marque" class="form-control "
-                                   type="text" placeholder="Marque" />
+                                   type="text" placeholder="Marque" 
+                                   [ngClass]="!citerneForm.get('marque').valid? 'is-invalid'
+                                   :citerneForm.get('marque').valid? 'is-valid'
+                                   :''
+                                   " 
+                                   
+                            />
                         </div>
                         <div class="col-sm">
-                            <label for="model">modèle</label>
+                            <label for="model">Modèle</label>
                             <input id="model" formControlName="model" class="form-control"
                                    type="number"
-                                   placeholder="Modele" />
+                                   placeholder="Modèle" 
+                                   [ngClass]="!citerneForm.get('model').valid? 'is-invalid'
+                                   :citerneForm.get('model').valid? 'is-valid'
+                                   :''
+                                   " 
+                                   
+                            />
                         </div>
                         <div class="col-sm">
                             <label for="mat">Matricule</label>
                             <input id="mat" formControlName="matricule" class="form-control"
-                                   type="text" placeholder="Matricule (Numéro de plaque)" />
+                                   type="text" placeholder="Matricule (Numéro de plaque)" 
+                                   [ngClass]="!citerneForm.get('matricule').valid? 'is-invalid'
+                                   :citerneForm.get('matricule').valid? 'is-valid'
+                                   :''
+                                   " 
+                            />
                         </div>
                     </div>
 
@@ -66,19 +104,34 @@
                         <div class="col-sm">
                             <label for="nbc">Nombre Compartiments</label>
                             <input id="nbc" formControlName="nbreCompartiment" class="form-control "
-                                   type="text" placeholder="Nbre de compartiment" />
+                                   type="number" placeholder="Nbre de compartiment" 
+                                   [ngClass]="!citerneForm.get('nbreCompartiment').valid? 'is-invalid'
+                                   :citerneForm.get('nbreCompartiment').valid? 'is-valid'
+                                   :''
+                                   " 
+                                />
                         </div>
                         <div class="col-sm">
                             <label for="sn">numero de série</label>
                             <input id="sn" formControlName="serialNumber" class="form-control"
                                    type="text"
-                                   placeholder="Numéro de serie" />
+                                   placeholder="Numéro de serie" 
+                                   [ngClass]="!citerneForm.get('serialNumber').valid? 'is-invalid'
+                                   :citerneForm.get('serialNumber').valid? 'is-valid'
+                                   :''
+                                   " 
+                            />
                         </div>
                         <div class="col-sm">
                             <label for="capP">capacité pied</label>
                             <input id="capP" formControlName="capacitePied" class="form-control"
                                    type="number"
-                                   placeholder="Capacité pied" />
+                                   placeholder="Capacité pied" 
+                                   [ngClass]="!citerneForm.get('capacitePied').valid? 'is-invalid'
+                                   :citerneForm.get('capacitePied').valid? 'is-valid'
+                                   :''
+                                   " 
+                            />
                         </div>
 
                     </div>
@@ -87,7 +140,12 @@
                     <div class="row mt-3">
                         <div class="col-sm">
                             <label for="fabric">Fabric</label>
-                            <select class="custom-select" formControlName="fabric" id="fabric">
+                            <select class="custom-select" formControlName="fabric" id="fabric"
+                            [ngClass]="!citerneForm.get('fabric').valid? 'is-invalid'
+                            :citerneForm.get('fabric').valid? 'is-valid'
+                            :''
+                            " 
+                            >
                                 <option>Année d'acquisition</option>
                                 <option *ngFor="let y of years" value="{{y}}">{{y}}</option>
                             </select>
@@ -97,12 +155,22 @@
                             <label for="poids">poids</label>
                             <input id="poids" formControlName="poids" class="form-control"
                                    type="number"
-                                   placeholder="Poids" />
+                                   placeholder="Poids" 
+                                   [ngClass]="!citerneForm.get('poids').valid? 'is-invalid'
+                                   :citerneForm.get('poids').valid? 'is-valid'
+                                   :''
+                                   " 
+                            />
                         </div>
                         <div class="col-sm">
                             <label for="entretien">dernier entretien</label>
                             <input id="entretien" formControlName="entretien" class="form-control"
-                                   type="date" placeholder="Dernier entretien" />
+                                   type="date" placeholder="Dernier entretien" 
+                                   [ngClass]="!citerneForm.get('entretien').valid? 'is-invalid'
+                                   :citerneForm.get('entretien').valid? 'is-valid'
+                                   :''
+                                   " 
+                                />
                         </div>
 
                     </div>
@@ -111,15 +179,25 @@
                                 <label class="small mb-1" >Vaccum</label>
                                 <div class="checkbox">
                                     <div class="form-check" style="margin-right: 10px;">
-                                        <input class="form-check-input" type="radio" formControlName="isVaccum"
-                                                value="true" checked>
+                                        <input class="form-check-input" type="radio"            formControlName="isVaccum"
+                                                value="true" checked
+                                                [ngClass]="!citerneForm.get('isVaccum').valid? 'is-invalid'
+                                                :citerneForm.get('isVaccum').valid? 'is-valid'
+                                                :''
+                                                "
+                                        >
                                         <label class="form-check-label" >
                                             Oui
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" formControlName="isVaccum"
-                                               value="false">
+                                               value="false"
+                                                [ngClass]="!citerneForm.get('isVaccum').valid? 'is-invalid'
+                                                :citerneForm.get('isVaccum').valid? 'is-valid'
+                                                :''
+                                                "
+                                        >
                                         <label class="form-check-label">
                                             Non
                                         </label>
@@ -131,14 +209,24 @@
                                 <div class="checkbox">
                                     <div class="form-check" style="margin-right: 10px;">
                                         <input class="form-check-input" type="radio" formControlName="isCertificated"
-                                                value="true" checked>
+                                                value="true" checked
+                                                [ngClass]="!citerneForm.get('isCertificated').valid? 'is-invalid'
+                                                :citerneForm.get('isCertificated').valid? 'is-valid'
+                                                :''
+                                                "
+                                        >
                                         <label class="form-check-label">
                                             Oui
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" formControlName="isCertificated"
-                                               value="false">
+                                               value="false"
+                                               [ngClass]="!citerneForm.get('isCertificated').valid? 'is-invalid'
+                                               :citerneForm.get('isCertificated').valid? 'is-valid'
+                                               :''
+                                               "
+                                       >
                                         <label class="form-check-label">
                                             Non
                                         </label>
@@ -150,14 +238,24 @@
                                 <div class="checkbox">
                                     <div class="form-check" style="margin-right: 10px;">
                                         <input class="form-check-input" type="radio" formControlName="isBackCharge"
-                                               value="true" checked>
+                                               value="true" checked
+                                               [ngClass]="!citerneForm.get('isBackCharge').valid? 'is-invalid'
+                                               :citerneForm.get('isBackCharge').valid? 'is-valid'
+                                               :''
+                                               "
+                                        >
                                         <label class="form-check-label" >
                                             Oui
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" formControlName="isBackCharge"
-                                               value="false">
+                                               value="false"
+                                               [ngClass]="!citerneForm.get('isBackCharge').valid? 'is-invalid'
+                                               :citerneForm.get('isBackCharge').valid? 'is-valid'
+                                               :''
+                                               "
+                                        >
                                         <label class="form-check-label" >
                                             Non
                                         </label>
@@ -174,14 +272,24 @@
                             <div class="checkbox">
                                 <div class="form-check" style="margin-right: 10px;">
                                     <input class="form-check-input" type="radio" formControlName="dispo"
-                                           id="exampleRadios1" value="true" checked>
+                                           id="exampleRadios1" value="true" checked
+                                           [ngClass]="!citerneForm.get('dispo').valid? 'is-invalid'
+                                               :citerneForm.get('dispo').valid? 'is-valid'
+                                               :''
+                                               "
+                                    >
                                     <label class="form-check-label" for="exampleRadios1">
                                         Actif
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" formControlName="dispo"
-                                           id="exampleRadios2" value="false">
+                                           id="exampleRadios2" value="false"
+                                           [ngClass]="!citerneForm.get('dispo').valid? 'is-invalid'
+                                               :citerneForm.get('dispo').valid? 'is-valid'
+                                               :''
+                                               "
+                                    >
                                     <label class="form-check-label" for="exampleRadios2">
                                         Inactif
                                     </label>
@@ -193,26 +301,58 @@
                             <div class="checkbox">
                                 <div class="form-check" style="margin-right: 10px;">
                                     <input class="form-check-input" type="radio" formControlName="isAutoVireur"
-                                           value="true" checked>
+                                           value="true" checked
+                                           [ngClass]="!citerneForm.get('isAutoVireur').valid? 'is-invalid'
+                                               :citerneForm.get('isAutoVireur').valid? 'is-valid'
+                                               :''
+                                               "
+                                    >
                                     <label class="form-check-label" >
                                         Oui
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" formControlName="isAutoVireur"
-                                           value="false">
+                                           value="false"
+                                           [ngClass]="!citerneForm.get('isAutoVireur').valid? 'is-invalid'
+                                               :citerneForm.get('isAutoVireur').valid? 'is-valid'
+                                               :''
+                                               "
+                                    >
                                     <label class="form-check-label" >
                                         Non
                                     </label>
                                 </div>
                             </div>
                         </div>
+                        <div class="col-sm">
+                            
+                        </div>
                     </div>
 
 
                     <div class="row my-10">
                         <div class="col-sm mt-">
-                            <button style="width: 100%"  (click)="onSubmit()" class="btn btn-primary">Valider</button>
+                            <button style="width: 100%" 
+                            [disabled]="(citerneForm.get('assetId').invalid  
+                            || citerneForm.get('description').invalid
+                            || citerneForm.get('manufacture').invalid
+                            || citerneForm.get('marque').invalid
+                            || citerneForm.get('model').invalid
+                            || citerneForm.get('matricule').invalid
+                            || citerneForm.get('nbreCompartiment').invalid
+                            || citerneForm.get('serialNumber').invalid
+                            || citerneForm.get('capacitePied').invalid
+                            || citerneForm.get('fabric').invalid
+                            || citerneForm.get('poids').invalid
+                            || citerneForm.get('entretien').invalid
+                            || citerneForm.get('isVaccum').invalid
+                            || citerneForm.get('isCertificated').invalid
+                            || citerneForm.get('isBackCharge').invalid
+                            || citerneForm.get('dispo').invalid
+                            || citerneForm.get('isAutoVireur').invalid)
+                            " 
+                            (click)="onSubmit()" class="btn btn-primary">Valider</button>
                         </div>
 
                         <div class="col-sm">

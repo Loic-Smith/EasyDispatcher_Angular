@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {ChauffeurService} from '../services/chauffeur-service.service';
-import {ChauffeurModel} from '../models/chauffeur.model';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ChauffeurModel } from '../models/chauffeur.model';
+import { ChauffeurService } from '../services/chauffeur-service.service';
 
 @Component({
-  selector: 'app-modal-chauffeur',
-  templateUrl: './modal-chauffeur.component.html',
-  styleUrls: ['./modal-chauffeur.component.scss']
+  selector: 'app-modaldd',
+  templateUrl: './modaldd.component.html',
+  styleUrls: ['./modaldd.component.scss']
 })
-export class ModalChauffeurComponent implements OnInit {
+export class ModalddComponent implements OnInit {
   chauffeur = new ChauffeurModel;
   submitted = false;
   createChauffeurForm!: FormGroup;
@@ -34,7 +34,6 @@ export class ModalChauffeurComponent implements OnInit {
       date_embauche: new FormControl(this.chauffeur.date_embauche,[Validators.required]),
       date_depart: new FormControl(this.chauffeur.date_depart,[Validators.required]),
       statut: new FormControl(this.chauffeur.statut,[Validators.required]),
-      contact: new FormControl(this.chauffeur.contact,[Validators.required]),
       lundi: new FormControl(this.chauffeur.jour[0],[Validators.required]),
       mardi: new FormControl(this.chauffeur.jour[1],[Validators.required]),
       mercredi: new FormControl(this.chauffeur.jour[2],[Validators.required]),
@@ -51,7 +50,6 @@ export class ModalChauffeurComponent implements OnInit {
       date_embauche: this.createChauffeurForm.get('date_embauche')?.value,
       date_depart: this.createChauffeurForm.get('date_depart')?.value,
       statut: this.createChauffeurForm.get('statut')?.value,
-      contact: this.createChauffeurForm.get('contact')?.value,
      jour: [
           this.createChauffeurForm.get('lundi').value ? "lundi":"",
           this.createChauffeurForm.get('mardi').value ? "mardi":"",
@@ -66,7 +64,6 @@ export class ModalChauffeurComponent implements OnInit {
 
     });
     this.submitted = true;
-    location.reload();
   }
 
 }

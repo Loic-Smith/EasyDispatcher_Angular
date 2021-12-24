@@ -12,7 +12,7 @@ import {Router} from '@angular/router';
 export class CreateTankComponent implements OnInit {
   citerneForm!: FormGroup;
   citerneArray = Array<CiterneModel>();
-  years = Array<number>();
+  years = Array<number>(1990, 1991, 1992, 1993);
   isHidden = true;
   hiddenButton = true;
     submitted2 = false;
@@ -32,8 +32,8 @@ this.citerneForm = this.formBuilder.group({
     puissance: ['', Validators.required],
     entretien: ['', Validators.required],
     dispo: ['', Validators.required],
-    description: [''],
-    manufacture: [''],
+    description: ['', Validators.required],
+    manufacture: ['', Validators.required],
     serialNumber: ['', Validators.required],
     isAutoVireur: ['', Validators.required],
     isVaccum: ['', Validators.required],

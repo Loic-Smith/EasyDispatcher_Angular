@@ -45,40 +45,28 @@
                         </ng-container>
 
                         <ng-container matColumnDef="matricule">
-                            <th mat-header-cell *matHeaderCellDef style='background-color:  #42a5f5; color: white'>No. Matricule </th>
+                            <th mat-header-cell *matHeaderCellDef style='background-color:  #42a5f5; color: white; text-align: left;'>No. Matricule </th>
                             <td mat-cell *matCellDef="let element"> {{ element.matricule}} </td>
                         </ng-container>
 
                         <!-- Name Column -->
                         <ng-container matColumnDef="serialNumber">
-                            <th mat-header-cell *matHeaderCellDef style='background-color:  #42a5f5; color: white'> No. de serie </th>
+                            <th mat-header-cell *matHeaderCellDef style='background-color:  #42a5f5; color: white; text-align: left;'> No. de serie </th>
                             <td mat-cell *matCellDef="let element"> {{ element.serialNumber }} </td>
                         </ng-container>
 
-                        <!-- Name Column -->
-                        <ng-container matColumnDef="capacitePied">
-                            <th mat-header-cell *matHeaderCellDef style='background-color:  #42a5f5; color: white'> Capacite pied </th>
-                            <td mat-cell *matCellDef="let element"> {{ element.capacitePied }} </td>
-                        </ng-container>
-
-                        <ng-container matColumnDef="isVaccum">
-                            <th mat-header-cell *matHeaderCellDef style='background-color:  #42a5f5; color: white'> Vaccum </th>
-                            <td mat-cell *matCellDef="let element"> {{ element.isVaccum }} </td>
-                        </ng-container>
-
-                        <ng-container matColumnDef="isAutoVireur">
-                            <th mat-header-cell *matHeaderCellDef style='background-color:  #42a5f5; color: white'> AutoVireur </th>
-                            <td mat-cell *matCellDef="let element">{{element.isAutoVireur}} <!--<span *ngIf="!element.isAutoVireur"> non</span> <span *ngIf="element.isAutoVireur"> oui</span>--> </td>
-                        </ng-container>
-
-
-
-
-
-
+                        
                         <ng-container matColumnDef="action">
-                            <th mat-header-cell *matHeaderCellDef style='background-color:  #42a5f5; color: white; text-align: right'> Action </th>
-                            <td mat-cell *matCellDef="let element">  <button type="button" class="btn btn-danger m-1 text-right" (click)="openFormModal(element)" title="Active" style="float: right"><i class="material-icons">edit</i></button></td>
+                            <th mat-header-cell *matHeaderCellDef style='background-color:  #42a5f5; color: white; text-align: center'> Actions </th>
+                            <td mat-cell *matCellDef="let element">  
+                                <button type="button" class="btn btn-danger m-1 text-right" (click)="openFormModal(element)" title="Supprimer" style="float: right;"><i class="material-icons">delete</i>
+                                </button>
+                                <button type="button" class="btn btn-success m-1 text-right" (click)="openDetailsCiterne(element)" title="Details" style="float: right;"><i class="material-icons">details</i>
+                                </button>
+                                <button type="button" class="btn btn-warning m-1 text-right" (click)="openFormModal(element)" title="Modifier" style="float: right;"><i class="material-icons">edit</i>
+                                </button>
+                                
+                            </td>
                         </ng-container>
 
 

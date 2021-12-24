@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ProductService} from '../../produit/services';
 import {MatPaginator} from '@angular/material/paginator';
 import {ProduitModel} from '../../produit/models/produit.model';
@@ -9,6 +9,7 @@ import {ChauffeurModel} from '../models/chauffeur.model';
 import {ModalClientComponent} from '../../client/modal-client/modal-client.component';
 import {ModalChauffeurComponent} from '../modal-chauffeur/modal-chauffeur.component';
 import {Router} from '@angular/router';
+import { ModalddComponent } from '../modaldd/modaldd.component';
 
 @Component({
   selector: 'app-list-driver',
@@ -16,6 +17,9 @@ import {Router} from '@angular/router';
   styleUrls: ['./list-driver.component.scss']
 })
 export class ListDriverComponent implements OnInit {
+  ChauffeurService: any;
+  chauffeur1:ChauffeurModel;
+  closeResult: string;
 
 
   constructor(private modalService: NgbModal, private driverService: ChauffeurService, private router: Router) { }
@@ -28,17 +32,18 @@ export class ListDriverComponent implements OnInit {
     'id',
     'prenomChauffeur',
     'nomChauffeur',
-    'date_embauche',
+    'statut',
+    'contact',
     'action',
   ];
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
   ngOnInit(): void {
-    this.listProduct();
+    this.listChauffeur();
   }
 
-  listProduct(){
+  listChauffeur(){
     this.driverService.getChauffeurList().subscribe(res => {
       this.driverArray = res;
       console.log(this.driverArray);
@@ -47,7 +52,10 @@ export class ListDriverComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
     });
   }
-  openFormModal(chauffeur: any) {
+
+  openFormModal(content,chauffeur: any,id:number) {
+    this.chauffeur1=chauffeur;
+    if(id==3){
       const modalRef = this.modalService.open(ModalChauffeurComponent);
       modalRef.componentInstance.chauffeur = chauffeur;
       modalRef.result
@@ -57,7 +65,42 @@ export class ListDriverComponent implements OnInit {
         .catch(error => {
           console.log(error);
         });
+      }else if(id==2){
+        const modalRef = this.modalService.open(ModalddComponent);
+        modalRef.componentInstance.chauffeur = chauffeur;
+        modalRef.result
+          .then(result => {
+            console.log(result);
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      }else if(id==1){
+        this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+          this.closeResult = `Closed with: ${result}`;
+        }, (reason) => {
+          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        });
+      }
   }
+  DeleteChauffeur(){
+    this.driverService.deleteChauffeur(this.chauffeur1.id).subscribe(res=>{
+      console.log(res);
+    });
+
+    location.reload();
+  }
+  private getDismissReason(reason: any): string {
+
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+  
   displayForm() {
     this.router.navigate(['/dispatcher/driver/new']);
   }

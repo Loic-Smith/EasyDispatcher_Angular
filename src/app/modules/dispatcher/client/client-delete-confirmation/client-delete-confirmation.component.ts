@@ -19,6 +19,7 @@ export class ClientDeleteConfirmationComponent implements OnInit {
 
   deleteClient(clientid:number){
     this.clientservice.deleteClient(clientid);
-    alert('client supprimé avec succes!'+clientid);
+    //alert(this.clientservice.deleteClient(clientid));//('client supprimé avec succes!'+clientid);
+    this.activemodal.dismiss('');
   }
 }

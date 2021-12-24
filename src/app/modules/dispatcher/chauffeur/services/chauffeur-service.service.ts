@@ -32,7 +32,7 @@ export class ChauffeurService {
     return this.http.put(this.baseUrl + "/chauffeur/"+id, value);
   }
 
-  deleteChaffeur(id: number): Observable<any> {
+  deleteChauffeur(id: number): Observable<any> {
     return this.http.delete(this.baseUrl + "/chauffeur/"+id, { responseType: 'text' });
   }
 

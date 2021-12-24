@@ -1,5 +1,6 @@
+import { Location } from '@angular/common';
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CiterneService} from '../../citerne/services';
 import {MatPaginator} from '@angular/material/paginator';
 import {CiterneModel} from '../../citerne/models/citerne.model';
@@ -9,6 +10,7 @@ import {CamionModel} from '../models/camion.model';
 import {ModalClientComponent} from '../../client/modal-client/modal-client.component';
 import {ModalCamionComponent} from '../modal-camion/modal-camion.component';
 import {Router} from '@angular/router';
+import { ModaldComponent } from '../modald/modald.component';
 
 @Component({
   selector: 'app-list-truck',
@@ -16,6 +18,9 @@ import {Router} from '@angular/router';
   styleUrls: ['./list-truck.component.scss']
 })
 export class ListTruckComponent implements OnInit {
+  Location: any;
+  camion1:CamionModel;
+  closeResult: string;
 
 
   constructor(private modalService: NgbModal, private camionService: CamionService, private router: Router) { }
@@ -25,13 +30,12 @@ export class ListTruckComponent implements OnInit {
   camionArray = Array<CamionModel>();
 
   displayedColumns: string[] = [
-    'id',
     'assetId',
-    'description',
+    'disponible',
+    'puissance',
+    'pret',
+    'marque',
     'matricule',
-    'serialNumber',
-    'isRedy',
-    'isUsDot',
     'action'
   ];
   ngAfterViewInit() {
@@ -51,7 +55,9 @@ export class ListTruckComponent implements OnInit {
     });
   }
 
-  openFormModal(camion: any) {
+  openFormModal(content,camion: any,id:number) {
+    this.camion1=camion;
+    if(id==1){
     const modalRef = this.modalService.open(ModalCamionComponent);
     modalRef.componentInstance.camion = camion;
     modalRef.result
@@ -61,7 +67,46 @@ export class ListTruckComponent implements OnInit {
         .catch(error => {
           console.log(error);
         });
+    }else if(id==3){
+      const modalRef = this.modalService.open(ModaldComponent);
+    modalRef.componentInstance.camion = camion;
+    modalRef.result
+        .then(result => {
+          console.log(result);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }else if(id==2){
+      this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+      }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
+      //this.camionService.deleteCamion(camion.id).subscribe(res=>{
+      //  console.log(res);
+     // });
+     // location.reload();
+    }
+}
+DeleteCamion(){
+  this.camionService.deleteCamion(this.camion1.id).subscribe(res=>{
+    console.log(res);
+  });
+  location.reload();
+}
+private getDismissReason(reason: any): string {
+
+  if (reason === ModalDismissReasons.ESC) {
+    return 'by pressing ESC';
+  } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+    return 'by clicking on a backdrop';
+  } else {
+    return `with: ${reason}`;
   }
+}
+
+
   displayForm(){
     this.router.navigate(['dispatcher/truck/new']);
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+  import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {ProduitModel} from '../models/produit.model';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
@@ -40,6 +40,7 @@ export class ModalProduitComponent implements OnInit {
       this.listProduct();
     });
     this.submitted = true;
+    this.activeModal.dismiss();
   }
 
 }
