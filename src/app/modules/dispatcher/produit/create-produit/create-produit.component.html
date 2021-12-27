@@ -1,5 +1,5 @@
 
-<div style='margin: 2%; padding: 2%' class=" border-0 rounded-lg mt-5">
+<div style='margin: 2%; padding: 2%' class=" border-0 rounded-lg mt-5" id="main-container">
 
 
     <div class="card ">
@@ -28,11 +28,53 @@
                             <div class="col-sm">
 
                                 <input formControlName="designation" class="form-control "
-                                       type="text" placeholder="Désignation" />
+                                       type="text" placeholder="Désignation" 
+                                       [ngClass]="(productForm.get('designation').touched 
+                                    || productForm.get('designation').dirty) && productForm.get('designation').hasError('minlength') ? 'is-invalid'
+                                   :'' || productForm.get('designation').hasError('minlength')
+                                    ? 'is-invalid'
+                                   :'' || ((productForm.get('designation').touched || productForm.get('designation').   dirty) && !productForm. get('designation').invalid)? 'is-valid'
+                                    : ''
+                                   "
+                                   />
+                                   <div class="invalid-feedback">
+                                    {{
+                                        productForm.get("designation").hasError("required")
+                                        ? "Veuillez entrer la designation du produit"
+                                        : ""
+                                    }}
+                                    {{
+                                        productForm.get("designation").hasError("minlength")
+                                        ? "4 caractères minimum"
+                                        : ""
+                                    }}
+                                  </div>
+                                       
                             </div>
                             <div  class="col-sm">
                                 <input formControlName="description" class="form-control"
-                                       type="tel" placeholder="Description" />
+                                       type="tel" placeholder="Description" 
+                                       [ngClass]="(productForm.get('description').touched 
+                                    || productForm.get('description').dirty) && productForm.get('description').hasError('minlength') ? 'is-invalid'
+                                   :'' || productForm.get('description').hasError('minlength')
+                                    ? 'is-invalid'
+                                   :'' || ((productForm.get('description').touched || productForm.get('description').   dirty) && !productForm.get('description').invalid)? 'is-valid'
+                                 : ''
+                                   "
+                                   />
+                                   <div class="invalid-feedback">
+                                    {{
+                                        productForm.get("description").hasError("required")
+                                        ? "Veuillez entrer la description du produit"
+                                        : ""
+                                    }}
+                                    {{
+                                        productForm.get("description").hasError("minlength")
+                                        ? "4 caractères minimum"
+                                        : ""
+                                    }}
+                                  </div>
+                                       
                             </div>
 
 
@@ -41,7 +83,9 @@
 
                         <div class="row my-5">
                             <div class="col-sm mt-">
-                                <button style="width: 100%"  (click)="onSubmit()" class="btn btn-primary">Valider</button>
+                                <button style="width: 100%" [disabled]="productForm.invalid"
+                                (click)="open('add')"
+                                class="btn btn-primary">Valider</button>
                             </div>
 
                             <div class="col-sm">
@@ -56,4 +100,30 @@
         </div>
     </div>
 
+    
+
+
+      <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="addProductModalLqbel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+    
+                <div class="modal-header">
+                    <h4 class="modal-title">Créer un nouveau produit</h4>
+                    <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <span class="bg.light">Confirmer  la création du nouveau produit</span>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onSubmit()">Enregistrer</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+                  </div>
+    
+            </div>
+    
+        </div>
+    
+    </div>
 
