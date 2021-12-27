@@ -29,13 +29,27 @@
                             <label for="assetId"> Asset ID</label>
                             <input id="assetId" formControlName="assetId" class="form-control "
                                    type="text" placeholder="Asset Id" 
-                                   [ngClass]="!citerneForm.get('assetId').valid? 'is-invalid'
-                                   :citerneForm.get('assetId').valid? 'is-valid'
-                                   :''
+                                   [ngClass]="(citerneForm.get('assetId').touched 
+                                    || citerneForm.get('assetId').dirty) && citerneForm.get('assetId').hasError('minlength') ? 'is-invalid'
+                                   :'' || citerneForm.get('assetId').hasError('minlength')
+                                    ? 'is-invalid'
+                                   :'' || ((citerneForm.get('assetId').touched || citerneForm.get('assetId').   dirty) && !citerneForm.get('assetId').invalid)? 'is-valid'
+                                 : ''
                                    "
                                    />
-                                   <!--<div [hidden]="citerneForm.get('assetId').valid" 
-                                   class="alert alert-danger">Asset ID est obligatoire et doit avoir plus de cinq caractères</div>-->
+                                   <div class="invalid-feedback">
+                                    {{
+                                      citerneForm.get("assetId").hasError("required")
+                                        ? "Veuillez entrer assetId"
+                                        : ""
+                                    }}
+                                    {{
+                                      citerneForm.get("assetId").hasError("minlength")
+                                        ? "5 caractères minimum"
+                                        : ""
+                                    }}
+                                  </div>
+                                   
                         </div>
                         <div  class="col-sm">
                             <label for="description">description</label>

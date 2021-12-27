@@ -29,6 +29,19 @@ export class CreateProduitComponent implements OnInit {
     });
   }
 
+  open(mode: String) {
+    const container = document.getElementById('main-container');
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.style.display = 'none';
+    button.setAttribute('data-toggle', 'modal');
+    if(mode === 'add'){
+      button.setAttribute('data-target', '#editProductModal');
+    }
+    container.appendChild(button);
+    button.click();
+  }
+
   onSubmit(){
     const data = {
       designation: this.productForm.get('designation')?.value,

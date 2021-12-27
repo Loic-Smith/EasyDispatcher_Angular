@@ -23,7 +23,7 @@ export class CreateTankComponent implements OnInit {
 
   ngOnInit() {
 this.citerneForm = this.formBuilder.group({
-    assetId: ['', Validators.required],
+    assetId: ['', Validators.required, Validators.minLength(5)],
     marque: ['', Validators.required],
     model: ['', Validators.required],
     matricule: ['', Validators.required],
