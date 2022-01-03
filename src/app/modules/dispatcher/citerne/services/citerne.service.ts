@@ -31,7 +31,7 @@ export class CiterneService {
   }
 
   deleteCiterne(id: number): Observable<any> {
-    return this.http.delete(this.baseUrl + '/citerne/'+id, { responseType: 'text' });
+    return this.http.delete(this.baseUrl + '/deleteCiterne/'+id, { responseType: 'text' });
   }
 
   getCiterneList(): Observable<any> {

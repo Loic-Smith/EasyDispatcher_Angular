@@ -14,7 +14,9 @@ import { DetailsCiterneComponent } from '../details-citerne/details-citerne.comp
   styleUrls: ['./list-tank.component.scss']
 })
 export class ListTankComponent implements OnInit {
-
+  Location: any;
+  citerne1: CiterneModel;
+  closeResult: string;
 
   constructor(private modalService: NgbModal, private citerneService: CiterneService, private router: Router) { }
 
@@ -46,28 +48,34 @@ export class ListTankComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
     });
   }
-  openFormModal(citerne: any) {
-    const modalRef = this.modalService.open(ModalCiterneComponent);
-    modalRef.componentInstance.citerne = citerne;
-    modalRef.result
+
+  openFormModal(citerne: any, id: string) {
+    this.citerne1 = citerne;
+    if(id === 'update'){
+      const modalRef = this.modalService.open(ModalCiterneComponent);
+      modalRef.componentInstance.citerne = citerne;
+      modalRef.result
+        .then(result => {
+          console.log(result);
+        })
+        .catch(error => {
+        console.log(error);
+        });
+    }
+    else if(id === 'details'){
+      const modalRef = this.modalService.open(DetailsCiterneComponent);
+      modalRef.componentInstance.citerne = citerne;
+      modalRef.result
         .then(result => {
           console.log(result);
         })
         .catch(error => {
           console.log(error);
         });
+    }
+    
   }
-  openDetailsCiterne(citerne: any) {
-    const modalRef = this.modalService.open(DetailsCiterneComponent);
-    modalRef.componentInstance.citerne = citerne;
-    modalRef.result
-        .then(result => {
-          console.log(result);
-        })
-        .catch(error => {
-          console.log(error);
-        });
-  }
+
   displayForm() {
     this.router.navigate(['/dispatcher/tank/new']);
   }
@@ -76,4 +84,25 @@ export class ListTankComponent implements OnInit {
     this.dataSource.filter = input.trim().toLowerCase();
   }
 
+  public onOpenModal(citerne: CiterneModel, mode: String){
+    this.citerne1 = citerne;
+    const container = document.getElementById('main-container-list-tank');
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.style.display = 'none';
+    button.setAttribute('data-toggle', 'modal');
+    if(mode === 'delete'){
+      button.setAttribute('data-target', '#deleteTankModal');
+    }
+    container.appendChild(button);
+    button.click();
+  }
+
+  deleteCiterne(){
+    this.citerneService.deleteCiterne(this.citerne1.id).subscribe(res=>{
+      console.log(res);
+    });
+
+    location.reload();
+  }
 }

@@ -24,22 +24,23 @@ export class CreateProduitComponent implements OnInit {
 
   ngOnInit() {
     this.productForm = this.formBuilder.group({
-      designation: ['', Validators.required, Validators.minLength(4)],
-      description: ['', Validators.required, Validators.minLength(4)],
+      designation: ['', [Validators.required, Validators.minLength(4)]],
+      description: ['', [Validators.required, Validators.minLength(4)]],
     });
   }
 
   open(mode: String) {
-    const container = document.getElementById('main-container');
+    const container = document.getElementById('main-container-add-product');
     const button = document.createElement('button');
     button.type = 'button';
     button.style.display = 'none';
     button.setAttribute('data-toggle', 'modal');
     if(mode === 'add'){
-      button.setAttribute('data-target', '#editProductModal');
+      button.setAttribute('data-target', '#addProductModal');
     }
     container.appendChild(button);
     button.click();
+
   }
 
   onSubmit(){
@@ -51,7 +52,9 @@ export class CreateProduitComponent implements OnInit {
       console.log(res);
     });
     this.submitted = true;
-}
+    this.productForm.reset();
+
+  }
 
     displayProductList() {
         this.router.navigate(['/dispatcher/product/list']);

@@ -1,5 +1,5 @@
 
-<div style='margin: 2%; padding: 2%' class=" border-0 rounded-lg mt-5" id="main-container">
+<div style='margin: 2%; padding: 2%' class=" border-0 rounded-lg mt-5" id="main-container-add-product">
 
 
     <div class="card ">
@@ -30,10 +30,10 @@
                                 <input formControlName="designation" class="form-control "
                                        type="text" placeholder="Désignation" 
                                        [ngClass]="(productForm.get('designation').touched 
-                                    || productForm.get('designation').dirty) && productForm.get('designation').hasError('minlength') ? 'is-invalid'
+                                    || productForm.get('designation').dirty) && productForm.get('designation').hasError('required') ? 'is-invalid'
                                    :'' || productForm.get('designation').hasError('minlength')
                                     ? 'is-invalid'
-                                   :'' || ((productForm.get('designation').touched || productForm.get('designation').   dirty) && !productForm. get('designation').invalid)? 'is-valid'
+                                   :'' || ((productForm.get('designation').touched || productForm.get('designation').dirty) && !productForm. get('designation').invalid)? 'is-valid'
                                     : ''
                                    "
                                    />
@@ -55,10 +55,10 @@
                                 <input formControlName="description" class="form-control"
                                        type="tel" placeholder="Description" 
                                        [ngClass]="(productForm.get('description').touched 
-                                    || productForm.get('description').dirty) && productForm.get('description').hasError('minlength') ? 'is-invalid'
+                                    || productForm.get('description').dirty) && productForm.get('description').hasError('required') ? 'is-invalid'
                                    :'' || productForm.get('description').hasError('minlength')
                                     ? 'is-invalid'
-                                   :'' || ((productForm.get('description').touched || productForm.get('description').   dirty) && !productForm.get('description').invalid)? 'is-valid'
+                                   :'' || ((productForm.get('description').touched || productForm.get('description').dirty) && !productForm.get('description').invalid)? 'is-valid'
                                  : ''
                                    "
                                    />
@@ -103,7 +103,8 @@
     
 
 
-      <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="addProductModalLqbel" aria-hidden="true">
+<div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" 
+    aria-labelledby="addProductModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
     
@@ -117,7 +118,10 @@
                     <span class="bg.light">Confirmer  la création du nouveau produit</span>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onSubmit()">Enregistrer</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" 
+                        (click)="onSubmit()">
+                        Enregistrer
+                    </button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
                   </div>
     
@@ -125,5 +129,5 @@
     
         </div>
     
-    </div>
+</div>
 

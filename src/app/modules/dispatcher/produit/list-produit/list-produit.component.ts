@@ -14,6 +14,10 @@ import { Button } from 'protractor';
   styleUrls: ['./list-produit.component.scss']
 })
 export class ListProduitComponent implements OnInit {
+  ProductService: any;
+  produit1 : ProduitModel;
+  closeResult: string;
+
 
   constructor(private modalService: NgbModal, private productService: ProductService, private router: Router) { }
 
@@ -36,7 +40,7 @@ export class ListProduitComponent implements OnInit {
     this.listProduct();
   }
 
-  listProduct(){
+  public listProduct(){
     this.productService.getProductList().subscribe(res => {
       this.productArray = res;
       console.log(this.productArray);
@@ -47,6 +51,7 @@ export class ListProduitComponent implements OnInit {
   }
 
   openFormModal(produit: any) {
+    this.produit1 = produit;
     const modalRef = this.modalService.open(ModalProduitComponent);
     modalRef.componentInstance.produit = produit;
     modalRef.result
@@ -59,6 +64,7 @@ export class ListProduitComponent implements OnInit {
   }
 
   public onOpenModal(produit: any, mode: String){
+    this.produit1 = produit;
     const container = document.getElementById('main-container');
     const button = document.createElement('button');
     button.type = 'button';
@@ -83,7 +89,13 @@ export class ListProduitComponent implements OnInit {
     this.dataSource.filter = input.trim().toLowerCase();
   }
 
+  deleteProduit(){
+    this.productService.deleteProduct(this.produit1.id).subscribe(res=>{
+      console.log(res);
+    });
 
+    location.reload();
+  }
 
   
 }

@@ -2,22 +2,24 @@ import { MarqueCiterneModel } from './marque-citerne-model';
 
 export class CiterneModel{
     id = 0;
-    marque = '';
-    modele = '';
-    matricule = '';
-    anneFabrication = 0;
-    poids = 0;
-    dispo = false; // status
-    puissance = 0;
-    dateEntretien = 0;
     assetId = '';
     description = '';
     manufacture = '';
+    marque = '';
+    modele = '';
+    matricule = '';
+    nbreCompartiment = 0;
     serialNumber = '';
     capacitePied = 0;
-    isAutoVireur = false;
+    anneFabrication = 0;
+    poids = 0;
+    puissance = 0;
+    dateEntretien = '';
     isVaccum = false;
     isCertificated = false;
     isBackCharge = false;
-    nbreCompartiment = 0;
+    dispo = false; // status
+    isAutoVireur = false;
+    
+    
 }
