@@ -1,5 +1,5 @@
   import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ProduitModel} from '../models/produit.model';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {ProductService} from '../services';
@@ -19,8 +19,8 @@ export class ModalProduitComponent implements OnInit {
 
   ngOnInit(): void {
     this.createProductForm = new FormGroup({
-      designation: new FormControl(this.produit.designation),
-      description: new FormControl(this.produit.description),
+      designation: new FormControl(this.produit.designation, [Validators.required, Validators.minLength(4)]),
+      description: new FormControl(this.produit.description, [Validators.required, Validators.minLength(4)])
     });
 
     this.listProduct();
@@ -41,6 +41,7 @@ export class ModalProduitComponent implements OnInit {
     });
     this.submitted = true;
     this.activeModal.dismiss();
+    location.reload();
   }
 
 }

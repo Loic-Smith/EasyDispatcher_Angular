@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CiterneModel} from '../models/citerne.model';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {CiterneService} from '../services';
@@ -12,50 +12,45 @@ import {CiterneService} from '../services';
 export class ModalCiterneComponent implements OnInit {
   createCiterneForm!: FormGroup;
   submitted = false;
-  citerne = new CiterneModel();
+  citerne : any;
   years = Array<number>();
   citerneArray = Array<CiterneModel>();
 
-  constructor(public activeModal: NgbActiveModal, private citerneService: CiterneService) { }
+  constructor(public activeModal: NgbActiveModal, private citerneService: CiterneService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.createCiterneForm = new FormGroup({
-      assetId: new FormControl(this.citerne.assetId),
-      marque: new FormControl(this.citerne.marque),
-      model: new FormControl(this.citerne.modele),
-      matricule: new FormControl(this.citerne.matricule),
-      fabric: new FormControl(this.citerne.anneFabrication),
-      poids: new FormControl(this.citerne.poids),
-      puissance: new FormControl(this.citerne.puissance),
-      entretien: new FormControl(this.citerne.dateEntretien),
-      dispo: new FormControl(this.citerne.dispo),
-      description: new FormControl(this.citerne.description),
-      manufacture: new FormControl(this.citerne.manufacture),
-      serialNumber: new FormControl(this.citerne.serialNumber),
-      isAutoVireur: new FormControl(this.citerne.isAutoVireur),
-      isVaccum: new FormControl(this.citerne.isVaccum),
-      isCertificated: new FormControl(this.citerne.isCertificated),
-      isBackCharge: new FormControl(this.citerne.isBackCharge),
-      nbreCompartiment: new FormControl(this.citerne.nbreCompartiment),
-      capacitePied: new FormControl(this.citerne.capacitePied),
+      assetId: new FormControl(this.citerne.assetId, [Validators.required, Validators.minLength(5)]),
+      description: new FormControl(this.citerne.description, [Validators.required, Validators.minLength(5)]),
+      manufacture: new FormControl(this.citerne.manufacture, [Validators.required, Validators.minLength(5)]),
+      marque: new FormControl(this.citerne.marque, [Validators.required, Validators.minLength(3)]),
+      modele: new FormControl(this.citerne.modele, [Validators.required, Validators.minLength(5)]),
+      matricule: new FormControl(this.citerne.matricule, [Validators.required, Validators.minLength(3)]),
+      nbreCompartiment: new FormControl(this.citerne.nbreCompartiment, [Validators.required, Validators.min(0)]),
+      serialNumber: new FormControl(this.citerne.serialNumber, [Validators.required, Validators.minLength(4)]),
+      capacitePied: new FormControl(this.citerne.capacitePied, [Validators.required, Validators.min(10)]),
+      anneFabrication: new FormControl(this.citerne.anneFabrication, [Validators.required, Validators.min(1950)]),
+      poids: new FormControl(this.citerne.poids, [Validators.required, Validators.min(10)]),
+      puissance: new FormControl(this.citerne.puissance, [Validators.required, Validators.min(10)]),
+      entretien: new FormControl(this.citerne.dateEntretien, Validators.required),
+      
+      isVaccum: new FormControl(this.citerne.isVaccum, Validators.required),
+      isCertificated: new FormControl(this.citerne.isCertificated, Validators.required),
+      isBackCharge: new FormControl(this.citerne.isBackCharge, Validators.required),
+      dispo: new FormControl(this.citerne.dispo, Validators.required),
+      isAutoVireur: new FormControl(this.citerne.isAutoVireur, Validators.required),
+  
     });
-    this.listCiterne();
-  }
-
-  listCiterne(){
-    this.citerneService.getCiterneList().subscribe(res => {
-      this.citerneArray = res;
-      console.log(this.citerneArray);
-    });
+    this.generateYears();
   }
 
   updateCiterne(){
     var data = {
-      assetId: this.createCiterneForm.get('asserId')?.value,
+      assetId: this.createCiterneForm.get('assetId')?.value,
       marque: this.createCiterneForm.get('marque')?.value,
-      model: this.createCiterneForm.get('model')?.value,
+      modele: this.createCiterneForm.get('modele')?.value,
       matricule: this.createCiterneForm.get('matricule')?.value,
-      fabric: this.createCiterneForm.get('fabric')?.value,
+      anneFabrication: this.createCiterneForm.get('anneFabrication')?.value,
       poids: this.createCiterneForm.get('poids')?.value,
       puissance: this.createCiterneForm.get('puissance')?.value,
       entretien: this.createCiterneForm.get('entretien').value,
@@ -71,9 +66,18 @@ export class ModalCiterneComponent implements OnInit {
       capacitePied: this.createCiterneForm.get('capacitePied')?.value
     };
     this.citerneService.updateCiterne(this.citerne.id, data).subscribe(res => {
-      this.listCiterne();
+      console.log(res);
     });
     this.submitted = true;
+    location.reload();
+  }
+  generateYears(){
+    const currentYears = new Date().getFullYear();
+    console.log(currentYears);
+
+    for (let index = 1950; index <= currentYears; index++) {
+      this.years.push(index);
+    }
   }
 
 }

@@ -12,10 +12,10 @@ import {Router} from '@angular/router';
 export class CreateTankComponent implements OnInit {
   citerneForm!: FormGroup;
   citerneArray = Array<CiterneModel>();
-  years = Array<number>(1990, 1991, 1992, 1993);
+  years = Array<number>();
   isHidden = true;
   hiddenButton = true;
-    submitted2 = false;
+  submitted2 = false;
   submitted: any;
 
   constructor(private formBuilder: FormBuilder, private  citerneService: CiterneService, private router: Router) {
@@ -23,25 +23,28 @@ export class CreateTankComponent implements OnInit {
 
   ngOnInit() {
 this.citerneForm = this.formBuilder.group({
-    assetId: ['', Validators.required, Validators.minLength(5)],
-    marque: ['', Validators.required],
-    model: ['', Validators.required],
-    matricule: ['', Validators.required],
-    fabric: ['', Validators.required],
-    poids: ['', Validators.required],
-    puissance: ['', Validators.required],
-    entretien: ['', Validators.required],
-    dispo: ['', Validators.required],
-    description: ['', Validators.required],
-    manufacture: ['', Validators.required],
-    serialNumber: ['', Validators.required],
-    isAutoVireur: ['', Validators.required],
-    isVaccum: ['', Validators.required],
-    isCertificated: ['', Validators.required],
-    isBackCharge: ['', Validators.required],
-    nbreCompartiment: ['', Validators.required],
-    capacitePied: ['', Validators.required],
+    assetId: ['', [Validators.required, Validators.minLength(5)]],
+    description: ['',[Validators.required, Validators.minLength(5)]],
+    manufacture: ['', [Validators.required, Validators.minLength(5)]],
+    marque: ['', [Validators.required, Validators.minLength(3)]],
+    model: ['', [Validators.required, Validators.minLength(5)]],
+    matricule: ['', [Validators.required, Validators.minLength(3)]],
+    nbreCompartiment: ['', [Validators.required, Validators.min(0)]],
+    serialNumber: ['', [Validators.required, Validators.minLength(4)]],
+    capacitePied: ['',[Validators.required, Validators.min(10)]],
+    fabric: ['', [Validators.required, Validators.min(1950)]],
+    poids: ['', [Validators.required, Validators.min(10)]],
+    puissance: ['', [Validators.required, Validators.min(10)]],
+    entretien: ['', [Validators.required]],
+
+    isVaccum: ['',Validators.required],
+    isCertificated: ['',Validators.required],
+    isBackCharge: ['',Validators.required],
+    dispo: ['',Validators.required],
+    isAutoVireur: ['',Validators.required],
+    
   });
+  this.generateYears();
   }
 
 onSubmit() {
@@ -67,10 +70,37 @@ onSubmit() {
       nbreCompartiment: this.citerneForm.get('nbreCompartiment')?.value
     };
 
-    this.citerneService.createCiterne(data).subscribe(res => res);
+    this.citerneService.createCiterne(data).subscribe(res => {
+      console.log(res);
+    });
     this.submitted2 = true;
+    this.citerneForm.reset();
   }
+
+  open(mode: String) {
+    const container = document.getElementById('main-container-add-tank');
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.style.display = 'none';
+    button.setAttribute('data-toggle', 'modal');
+    if(mode === 'add'){
+      button.setAttribute('data-target', '#addTankModal');
+    }
+    container.appendChild(button);
+    button.click();
+
+  }
+
     displayList() {
         this.router.navigate(['/dispatcher/tank/list']);
+    }
+
+    generateYears(){
+      const currentYears = new Date().getFullYear();
+      console.log(currentYears);
+  
+      for (let index = 1950; index <= currentYears; index++) {
+        this.years.push(index);
+      }
     }
 }
